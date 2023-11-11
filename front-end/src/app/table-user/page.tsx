@@ -23,6 +23,14 @@ type Customer = {
   gender: string;
 };
 
+type Role = 'USER' | 'ADMIN' |'NANNY' ;
+
+type DecodedToken = {
+  sub: string;
+  exp: number;
+  a: Role[];
+};
+
 
 export default function CustomersPage({}: Props) {
   const [customer, setCustomer] = useState<Customer | null>(null);
@@ -33,7 +41,7 @@ export default function CustomersPage({}: Props) {
 
   const handleExit = () => {
       localStorage.removeItem('jwt'); // Remove the JWT token
-      router.push('/login-admin'); // Redirect to /login
+      router.push('/login-user'); // Redirect to /login
   };
 
   useEffect(() => {
@@ -43,10 +51,16 @@ export default function CustomersPage({}: Props) {
       
       // Decode the JWT to extract user ID
       if (token) {
-        const decodedToken: any = jwt_decode(token);
-        
+        const decodedToken: DecodedToken = jwt_decode(token);
+
+        if (!decodedToken.a.includes('USER')) {
+          setError('Access denied. You do not have the required permissions.');
+          setLoading(false);
+          return;
+        }
+  
         // Extract user ID from the "sub" key in JWT
-        const userId: number = decodedToken.sub;
+        const userId = decodedToken.sub;
         
         if (!userId) {
           setError("User ID not found in token.");

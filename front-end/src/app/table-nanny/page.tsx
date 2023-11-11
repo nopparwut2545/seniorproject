@@ -29,6 +29,15 @@ type Nanny = {
   role: string;
 };
 
+
+type Role = 'USER' | 'ADMIN' |'NANNY' ;
+
+type DecodedToken = {
+  sub: string;
+  exp: number;
+  a: Role[];
+};
+
 export default function NannyPage({}: Props) {
   const [nanny, setNanny] = useState<Nanny | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -44,8 +53,15 @@ export default function NannyPage({}: Props) {
   useEffect(() => {
       const token = localStorage.getItem('jwt');
       if (token) {
-        const decodedToken: any = jwt_decode(token);
-        const userId: number = decodedToken.sub;
+        const decodedToken: DecodedToken = jwt_decode(token);
+
+        if (!decodedToken.a.includes('NANNY')) {
+          setError('Access denied. You do not have the required permissions.');
+          setLoading(false);
+          return;
+        }
+
+        const userId = decodedToken.sub;
         if (!userId) {
           setError("User ID not found in token.");
           setLoading(false);
