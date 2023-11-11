@@ -1,0 +1,27 @@
+.Banner{
+    text-align: center;
+    color: white;
+    font-family: Montserrat;
+    font-size: 55px;
+}
+
+.logoweb{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.showscore{
+    margin-top: 15%;
+    display: block;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.showscoredetail{
+    margin-top: 5%;
+    display: block;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}

@@ -1,0 +1,92 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* ensure padding and borders don't affect box size */
+}
+
+.image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.box {
+  width: 595px;
+  height: 646px;
+  border-radius: 30px;
+  border: 0.5px solid #ff7093;
+  background: #ffe9ee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.header {
+  color: #000;
+  text-align: center;
+  font-family: Comfortaa;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.email, .password {
+  width: 426.594px;
+  height: 73px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 40px;
+  border: 0.5px solid #fbc;
+  background: #fff;
+  padding-left: 20px;
+}
+
+.icon img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.line {
+  height: 50%;
+  width: 1px;
+  background: #FBC;
+  margin-right: 10px;
+}
+
+.emailinput input, .passwordinput input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.LoginBox {
+  width: 226px;
+  height: 77px;
+  border-radius: 40px;
+  border: 0.5px solid #fbc;
+  background: #fbc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login button {
+  color: #FFF;
+  font-family: Comfortaa;
+  font-size: 35px;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
