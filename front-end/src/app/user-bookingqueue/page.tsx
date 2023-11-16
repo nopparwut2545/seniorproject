@@ -65,14 +65,14 @@ type DecodedToken = {
 
 // ของเก่า 
 export default function CustomersPage({ }: Props) {
-   
+
     const [nannies, setNannies] = useState<Nanny[]>([]);
 
     // const [bookinghistory, setbookinghistory] = useState<BookingHistory | null>(null);
     // const [bookingqueue, setbookingqueue] = useState<BookingQueue | null>(null);
 
-    const [bookinghistory, setbookinghistory] = useState<BookingHistory []>([]);
-    const [bookingqueue, setbookingqueue] = useState<BookingQueue []>([]);
+    const [bookinghistory, setbookinghistory] = useState<BookingHistory[]>([]);
+    const [bookingqueue, setbookingqueue] = useState<BookingQueue[]>([]);
 
     const [nanny, setnanny] = useState<Nanny | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -81,46 +81,47 @@ export default function CustomersPage({ }: Props) {
 
     const handleExit = () => {
         localStorage.removeItem('jwt'); // Remove the JWT token
-        router.push('/login-nanny'); // Redirect to /login
+        router.push('/login-user'); // Redirect to /login
     };
 
-    
+
 
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         // Decode the JWT to extract user ID
         if (token) {
             const decodedToken: any = jwt_decode(token);
-            if (!decodedToken.a.includes('NANNY')) {
-              setError('Access denied. You do not have the required permissions.');
-              setLoading(false);
-              return;
-            }
+            if (!decodedToken.a.includes('USER')) {
+                setError('Access denied. You do not have the required permissions.');
+                setLoading(false);
+                return;
+              }
             // Extract user ID from the "sub" key in JWT
-            const userId = decodedToken.sub;
+            const userId: number = decodedToken.sub;
 
             if (!userId) {
                 setError("User ID not found in token.");
                 setLoading(false);
                 return;
             }
-            
+
             console.log("User ID:", userId);
             const fetchData = async () => {
                 try {
                     // const response = await axios.get(`http://localhost:9000/api/admins/${userId}`);
-                    const response1 = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${userId}`);
-                    // const response2 = await axios.get<BookingHistory>(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
-                    // const response3 = await axios.get<BookingQueue>(`http://localhost:9000/api/nannies/booking-dataBQ/${userId}`);
-                    const response2 = await axios.get(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
-                    const response3 = await axios.get(`http://localhost:9000/api/nannies/booking-dataBQ/${userId}`);
+                    // const response1 = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${userId}`);
+                    // // const response2 = await axios.get<BookingHistory>(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
+                    // // const response3 = await axios.get<BookingQueue>(`http://localhost:9000/api/nannies/booking-dataBQ/${userId}`);
+                    // const response2 = await axios.get(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
+                    const response3 = await axios.get(`http://localhost:9000/api/customers/bookings/byCustomerId/${userId}`);
+
                     // setAdmin(response.data);
-                    setnanny(response1.data); 
-                    setbookinghistory(response2.data);
+                    // setnanny(response1.data);
+                    // setbookinghistory(response2.data);
                     setbookingqueue(response3.data);
-                    
-                    console.log(response1.data);
-                    console.log(response2.data);
+
+                    // console.log(response1.data);
+                    // console.log(response2.data);
                     console.log(response3.data);
 
                 } catch (err) {
@@ -136,14 +137,14 @@ export default function CustomersPage({ }: Props) {
             fetchData();
         } else {
             alert('You need to be logged in first.');
-            router.push('/login-admin');
+            router.push('/login-user');
         }
     }, []);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    if (!nanny) return <div>Nannies Not found {error}</div>;
-    if (!bookinghistory) return <div>Bookinghistory Not found {error}</div>;
+    // if (!nanny) return <div>Nannies Not found {error}</div>;
+    // if (!bookinghistory) return <div>Bookinghistory Not found {error}</div>;
     if (!bookingqueue) return <div>Bookingqueue Not found {error}</div>;
     // return (
     //     <div>
@@ -159,46 +160,41 @@ export default function CustomersPage({ }: Props) {
     // );
     return (
         <div>
-          <div className={styles.logoweb}>
-            {/* Display admin information */}
-          </div>
-          <div className={styles.Banner}>
-            <h2>Nanny History</h2>
-          </div>
-      
-          <button onClick={handleExit}>Exit</button>
-      
-          {/* Display booking history */}
-          <div>
-            <h3>Booking History</h3>
-            {bookinghistory ? (
-              bookinghistory.map((history) => (
-                <div key={history.id}>
-                  <p>ID: {history.id}</p>
-                  {/* Display other properties of 'history' */}
-                </div>
-              ))
-            ) : (
-              <p>Booking History data not found</p>
-            )}
-          </div>
-      
-          {/* Display booking queue */}
-          <div>
-            <h3>Booking Queue</h3>
-            {bookingqueue ? (
-              bookingqueue.map((queue) => (
-                <div key={queue.id}>
-                  <p>ID: {queue.id}</p>
-                  {/* Display other properties of 'queue' */}
-                </div>
-              ))
-            ) : (
-              <p>Booking Queue data not found</p>
-            )}
-          </div>
+            <div className={styles.logoweb}>
+                {/* Display admin information */}
+            </div>
+            <div className={styles.Banner}>
+                <h2>Nanny History</h2>
+            </div>
+
+            <button onClick={handleExit}>Exit</button>
+
+
+
+
+            {/* Display booking queue */}
+            <div>
+                <h3>Booking Queue</h3>
+                {bookingqueue ? (
+                    bookingqueue.map((queue) => (
+                        <div key={queue.id}>
+                            <p>ID: {queue.id}</p>
+                            <p>Customer ID: {queue.customer_id}</p>
+                            <p>Nanny ID: {queue.nanny_id}</p>
+                            <p>Start Date: {queue.start_date.toString()}</p>
+                            <p>End Date: {queue.end_date.toString()}</p>
+                            <p>Total Amount: {queue.total_amount}</p>
+                            <p>Status Payment: {queue.status_payment}</p>
+                            <p>Hours: {queue.hours}</p>
+                            {/* Display other properties of 'queue' */}
+                        </div>
+                    ))
+                ) : (
+                    <p>Booking Queue data not found</p>
+                )}
+            </div>
         </div>
-      );
-      
+    );
+
 }
 

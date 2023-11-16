@@ -62,7 +62,7 @@ export default function Page({ params }: { params: { username: string } }) {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-
+  const [showMap, setShowMap] = useState<boolean>(false); // New state for map visibility
   // const [userlocation, setuserlocation] = useState<any>();
   // const getUserLocation = ()=>{
   //   navigator.geolocation.getCurrentPosition(function(pos){
@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { username: string } }) {
   //   })
   // }
 
- 
+
   const handleExit = () => {
     localStorage.removeItem('jwt');
     router.push('/login-admin');
@@ -141,72 +141,169 @@ export default function Page({ params }: { params: { username: string } }) {
   if (!customer) return <div>Customer not found.</div>;
   if (!nanny) return <div>Nanny not found.</div>;
 
+  const handleEnterLocation = () => {
+    // Set showMap to true when the "Enter New Location" button is clicked
+    setShowMap(true);
+  };
+  // return (
+  //   <div>
+  //     <div className="block justify-center">
+  //       <div className="flex justify-center">
+  //         <h2>Hiring Nanny</h2>
+  //       </div>
+  //       <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+  //         <div className="flex justify-center text-center">
+  //           <h3>Where do you want to get the nanny?</h3>
+  //         </div>
 
+  //         <div className="flex flex-col sm:flex-row">
+  //           {/* Shared location details */}
+  //           <div className="bg-rose-200 p-5 rounded-lg shadow-lg mb-5 sm:mb-0 sm:mr-5 w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 mx-auto">
+  //             <h4>Home</h4>
+  //             <p>Customer username: {customer.username}</p>
+  //             <p>Email: {customer.email}</p>
+  //             <p>Contact number: {customer.contact_number}</p>
+  //             <p>District: {customer.district}</p>
+  //             <p>Sub-district: {customer.sub_district}</p>
+  //             <p>Zip code: {customer.zip_code}</p>
+  //             <p>Street number: {customer.street_number}</p>
+  //           </div>
+
+  //           <div className="bg-rose-200 p-5 rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 ml-5 mx-auto">
+  //             <h3>Enter New Location</h3>
+  //             <div key={nanny.username}>
+  //               {/* Link to the nanny detail page */}
+  //               <Link href={`/nannydetail2/${nanny.username}`}>
+  //                 <a>{customer.district}</a>
+  //               </Link>
+  //               {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+  //             </div>
+  //             <button onClick={handleExit}>Exit</button>
+
+
+  //           </div>
+  //         </div>
+
+  //       </div>
+  //     </div>
+
+
+  //     <div>
+  //       <h1>Map with Marker</h1>
+  //       <MapboxComponent />
+  //     </div>
+
+  //   </div>
+  // );
+
+  // return (
+  //   <div>
+  //     <div className="block justify-center">
+  //       <div className="flex justify-center">
+  //         <h2>Hiring Nanny</h2>
+  //       </div>
+  //       <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+  //         <div className="flex justify-center text-center">
+  //           <h3>Where do you want to get the nanny?</h3>
+  //         </div>
+
+  //         <div className="flex flex-col sm:flex-row">
+  //           {/* Shared location details */}
+  //           <div className="bg-rose-200 p-5 rounded-lg shadow-lg mb-5 sm:mb-0 sm:mr-5 w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 mx-auto">
+  //             <h4>Home</h4>
+  //             <p>Customer username: {customer.username}</p>
+  //             <p>Email: {customer.email}</p>
+  //             <p>Contact number: {customer.contact_number}</p>
+  //             <p>District: {customer.district}</p>
+  //             <p>Sub-district: {customer.sub_district}</p>
+  //             <p>Zip code: {customer.zip_code}</p>
+  //             <p>Street number: {customer.street_number}</p>
+  //           </div>
+
+  //           <div className="bg-rose-200 p-5 rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 ml-5 mx-auto">
+  //             <h3>Enter New Location</h3>
+  //             <div key={nanny.username}>
+  //               {/* Link to the nanny detail page */}
+  //               <Link href={`/nannydetail2/${nanny.username}`}>
+  //                 <a>{customer.district}</a>
+  //               </Link>
+  //               {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+  //             </div>
+  //             <button onClick={() => setShowMap(true)}>Enter New Location</button>
+  //             <button onClick={handleExit}>Exit</button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+
+  //     {/* Conditionally render the MapboxComponent */}
+  //     {showMap && (
+  //       <div>
+  //         <h1>Map with Marker</h1>
+  //         <MapboxComponent />
+  //       </div>
+  //     )}
+  //   </div>
+  // );
   return (
     <div>
-      <h2>Hiring Nanny</h2>
-      <div>
-        <h3>Where do you want to get the nanny?</h3>
-        <div>
-          {/* Shared location details */}
-          <div>
-            <h4>Home</h4>
-            <p>Customer username: {customer.username}</p>
-            <p>Email: {customer.email}</p>
-            <p>Contact number: {customer.contact_number}</p>
-            <p>District: {customer.district}</p>
-            <p>Sub-district: {customer.sub_district}</p>
-            <p>Zip code: {customer.zip_code}</p>
-            <p>Street number: {customer.street_number}</p>
-          </div>
+      <div className="block justify-center">
+        <div className="flex justify-center">
+          <h2>Hiring Nanny</h2>
         </div>
-
-        <div>
-          {/* Section for new user input */}
-          <h3>Enter New Location</h3>
-          {/* Add form inputs for new user input here */}
-        </div>
-
-        {/* Display other nanny information here */}
-
-        <div key={nanny.username}>
-          {/* Link to the nanny detail page */}
-          <Link href={`/nannydetail2/${nanny.username}`}>
-            <a>{customer.district}</a>
-          </Link>
-          {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
-        </div>
-        <button onClick={handleExit}>Exit</button>
-      </div>
-
-      <div>
-        <input
-          type="text"
-          placeholder="Search for a location"
-          onChange={(e) => {
-            // Perform autocomplete search here using Google Places Autocomplete API
-            // Update the map based on the selected location
-            // You can use AutocompleteService and GeocodingService provided by Google Maps API
-          }}
-        />
-        {/* <div id="map" style={{ height: '400px', width: '100%' }}></div> */}
-      </div>
-
-   
-        <div>
-          {/* <userlocationcontext.Provider value={{userlocation, setuserlocation}}> */}
-            
-          <div>
-            <h1>Map with Marker</h1>
-            <MapboxComponent/>
+        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+          <div className="flex justify-center text-center">
+            <h3>Where do you want to get the nanny?</h3>
           </div>
 
-          {/* </userlocationcontext.Provider> */}
-         
-        </div>
-   
+          <div className="flex flex-col sm:flex-row">
+            {/* Shared location details */}
+            <div className="bg-rose-200 p-5 rounded-lg shadow-lg mb-5 sm:mb-0 sm:mr-5 w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 mx-auto">
+              <h4>Home</h4>
+              <div className="rounded-2xl overflow-hidden" style={{
+                background: 'linear-gradient(0deg, #FF7093 0%, #FF7093 100%), linear-gradient(0deg, #FF7093 0%, #FF7093 100%), #FF7093',
+                borderRadius: '30px',
+              }}>
+                {/* <p>Customer username: {customer.username}</p>
+                <p>Contact number: {customer.contact_number}</p>
+                <p>District: {customer.district}</p>
+                <p>Sub-district: {customer.sub_district}</p>
+                <p>Zip code: {customer.zip_code}</p>
+                <p>Street number: {customer.street_number}</p>   */}
+                <p className="text-sm m-3">Location : {customer.locationall}</p>
+              </div>
 
+             
+
+            </div>
+
+            <div className="bg-rose-200 p-5 rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 ml-5 mx-auto">
+              <h3>Enter New Location</h3>
+              <div key={nanny.username}>
+                {/* Link to the nanny detail page */}
+                <Link href={`/nannydetail2/${nanny.username}`}>
+                  <a>{customer.district}</a>
+                </Link>
+                {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+              </div>
+              <button onClick={() => setShowMap(true)}>Enter New Location</button>
+              <button onClick={handleExit}>Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Conditionally render the MapboxComponent */}
+      {showMap && (
+        <div>
+          <button onClick={() => setShowMap(false)}>Close Map</button>
+          <h1>Map with Marker</h1>
+          <MapboxComponent />
+        </div>
+      )}
     </div>
   );
+
+
 }
 

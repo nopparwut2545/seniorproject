@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Model.BookingHistory;
+import com.example.demo.Model.BookingQueue;
 import com.example.demo.Model.Customer;
 import com.example.demo.Model.Nanny;
 import com.example.demo.Service.CustomerService;
@@ -65,4 +67,18 @@ public class CustomerController {
         return ResponseEntity.ok(Arrays.asList("fisrt","second"));
     }
 
+    @GetMapping("/bookingcs-dataBH/{customer_id}")
+    public List<BookingHistory> getBookingDataByCustomerIdBH(@PathVariable Long customer_id) {
+        return customerService.getBookingDataByCustomerIdBH(customer_id);
+    }
+
+    @GetMapping("/bookingcs-dataBQ/{customer_id}")
+    public List<BookingQueue> getBookingDataByCustomerIdBQ(@PathVariable Long customer_id) {
+        return customerService.getBookingDataByCustomerIdBQ(customer_id);
+    }
+
+    @GetMapping("/bookings/byCustomerId/{customer_id}")
+    public List<BookingQueue> findBQByCustomerIDStatusBookings(@PathVariable Long customer_id) {
+        return customerService.findBQByCustomerIDStatusBookings(customer_id);
+    }
 }

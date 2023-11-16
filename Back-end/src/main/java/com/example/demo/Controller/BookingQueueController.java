@@ -64,6 +64,14 @@ public class  BookingQueueController {
         return bookingqueueService.getfindBookingsCheckdate( nanny_id);
     }
 
+    @GetMapping("/getbookingsbycustomer/{customer_id}")
+    public List<BookingQueue> getfindBookingsByCustomerID(
+
+            @PathVariable("customer_id") Long customer_id) {
+
+        return bookingqueueService.getfindBookingsByCustomerID( customer_id);
+    }
+
     @GetMapping("/getbookingsteststatus/{customer_id}/{nanny_id}")
     public BookingQueue getBookingsByCustomerIdAndNannyIdtestStatus(
             @PathVariable("customer_id") Long customer_id,

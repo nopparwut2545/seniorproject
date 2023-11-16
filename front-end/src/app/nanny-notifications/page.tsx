@@ -54,6 +54,13 @@ type BookingHistory = {
     status: string,
     time_session: number
 };
+type Role = 'USER' | 'ADMIN' |'NANNY' ;
+
+type DecodedToken = {
+  sub: string;
+  exp: number;
+  a: Role[];
+};
 
 // ของเก่า 
 export default function CustomersPage({ }: Props) {
@@ -83,7 +90,11 @@ export default function CustomersPage({ }: Props) {
         // Decode the JWT to extract user ID
         if (token) {
             const decodedToken: any = jwt_decode(token);
-
+            if (!decodedToken.a.includes('NANNY')) {
+              setError('Access denied. You do not have the required permissions.');
+              setLoading(false);
+              return;
+            }
             // Extract user ID from the "sub" key in JWT
             const userId: number = decodedToken.sub;
 
@@ -117,47 +128,76 @@ export default function CustomersPage({ }: Props) {
         }
     }, []);
 
-    const handleUpdateStatus = async () => {
+    // const handleUpdateStatus = async () => {
 
+    //     try {
+
+    //         const bookingIds = bookingqueue.map((bookingqueues) => bookingqueues.id);
+    //         for (const bookingId of bookingIds) {
+
+    //             await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusPaid/${bookingId}`, {
+    //                 status: 'Bookings',
+    //             });
+
+    //         }
+    //     } catch (err) {
+    //         if (err instanceof Error) {
+    //             console.error(err.message);
+    //         } else {
+    //             console.error('An error occurred while updating the status.');
+    //         }
+    //     }
+    // };
+
+    // const handleUpdateStatusCancle = async () => {
+
+    //     try {
+
+    //         const bookingIds = bookingqueue.map((bookingqueues) => bookingqueues.id);
+    //         for (const bookingId of bookingIds) {
+
+    //             await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusCancle/${bookingId}`, {
+    //                 status: 'Bookings',
+    //             });
+
+    //         }
+    //     } catch (err) {
+    //         if (err instanceof Error) {
+    //             console.error(err.message);
+    //         } else {
+    //             console.error('An error occurred while updating the status.');
+    //         }
+    //     }
+    // };
+    const handleUpdateStatus = async (bookingId: number) => {
         try {
-
-            const bookingIds = bookingqueue.map((bookingqueues) => bookingqueues.id);
-            for (const bookingId of bookingIds) {
-
-                await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusPaid/${bookingId}`, {
-                    status: 'Bookings',
-                });
-
-            }
+          await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusPaid/${bookingId}`, {
+            status: 'Bookings',
+          });
+          window.location.reload();
         } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
-            } else {
-                console.error('An error occurred while updating the status.');
-            }
+          if (err instanceof Error) {
+            console.error(err.message);
+          } else {
+            console.error('An error occurred while updating the status.');
+          }
         }
-    };
-
-    const handleUpdateStatusCancle = async () => {
-
+      };
+    
+      const handleUpdateStatusCancel = async (bookingId: number) => {
         try {
-
-            const bookingIds = bookingqueue.map((bookingqueues) => bookingqueues.id);
-            for (const bookingId of bookingIds) {
-
-                await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusCancle/${bookingId}`, {
-                    status: 'Bookings',
-                });
-
-            }
+          await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusCancle/${bookingId}`, {
+            status: 'Bookings',
+          });
+          window.location.reload();
         } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
-            } else {
-                console.error('An error occurred while updating the status.');
-            }
+          if (err instanceof Error) {
+            console.error(err.message);
+          } else {
+            console.error('An error occurred while updating the status.');
+          }
         }
-    };
+      };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -176,34 +216,100 @@ export default function CustomersPage({ }: Props) {
     //         <button onClick={handleExit}>Exit</button>
     //     </div>
     // );
-    return (
-        <div>
-          {/* Display booking queue */}
-          <div>
-            <h3>Booking Queue</h3>
-            {bookingqueue.length > 0 ? (
-              bookingqueue.map((queue) => (
-                <div key={queue.id}>
-                  <p>ID: {queue.id}</p>
-                  <p>Customer ID: {queue.customer_id}</p>
-                  <p>Nanny ID: {queue.nanny_id}</p>
-                  <p>Start Date: {queue.start_date.toString()}</p>
-                  <p>End Date: {queue.end_date.toString()}</p>
-                  <p>Total Amount: {queue.total_amount}</p>
-                  <p>Status Payment: {queue.status_payment}</p>
-                  <p>Hours: {queue.hours}</p>
-                  {/* Display all other properties of 'queue' */}
-                </div>
-              ))
-            ) : (
-              <p>Booking Queue data not found</p>
-            )}
-          </div>
-          <button onClick={() => handleUpdateStatus()}>Confirm</button> 
-          <button onClick={() => handleUpdateStatusCancle()}>Cancle</button> 
-          <button onClick={handleExit}>Exit</button>
-        </div>
-      );
+    // return (
+    //     <div>
+    //       {/* Display booking queue */}
+    //       <div>
+    //         <h3>Booking Queue</h3>
+    //         {bookingqueue.length > 0 ? (
+    //           bookingqueue.map((queue) => (
+    //             <div key={queue.id}>
+    //               <p>ID: {queue.id}</p>
+    //               <p>Customer ID: {queue.customer_id}</p>
+    //               <p>Nanny ID: {queue.nanny_id}</p>
+    //               <p>Start Date: {queue.start_date.toString()}</p>
+    //               <p>End Date: {queue.end_date.toString()}</p>
+    //               <p>Total Amount: {queue.total_amount}</p>
+    //               <p>Status Payment: {queue.status_payment}</p>
+    //               <p>Hours: {queue.hours}</p>
+    //               {/* Display all other properties of 'queue' */}
+    //             </div>
+    //           ))
+    //         ) : (
+    //           <p>Booking Queue data not found</p>
+    //         )}
+    //       </div>
+    //       <button onClick={() => handleUpdateStatus()}>Confirm</button> 
+    //       <button onClick={() => handleUpdateStatusCancle()}>Cancle</button> 
+    //       <button onClick={handleExit}>Exit</button>
+    //     </div>
+    //   );
+//     return (
+//         <div>
+//           {/* Display booking queue */}
+//           <div>
+//             <h3>Booking Queue</h3>
+//             {bookingqueue.length > 0 ? (
+//               bookingqueue.map((queue) => (
+//                 <div key={queue.id}>
+//                   <p>ID: {queue.id}</p>
+//                   <p>Customer ID: {queue.customer_id}</p>
+//                   <p>Nanny ID: {queue.nanny_id}</p>
+//                   <p>Start Date: {queue.start_date.toString()}</p>
+//                   <p>End Date: {queue.end_date.toString()}</p>
+//                   <p>Total Amount: {queue.total_amount}</p>
+//                   <p>Status Payment: {queue.status_payment}</p>
+//                   <p>Hours: {queue.hours}</p>
+//                   {/* Display all other properties of 'queue' */}
+//                 </div>
+//               ))
+//             ) : (
+//               <p>Booking Queue data not found</p>
+//             )}
+//           </div>
+          
+//           {/* Conditional rendering of Confirm and Cancel buttons */}
+//           {bookingqueue.length > 0 && (
+//             <div>
+//               <button onClick={() => handleUpdateStatus()}>Confirm</button>
+//               <button onClick={() => handleUpdateStatusCancle()}>Cancel</button>
+//             </div>
+//           )}
       
+//           <button onClick={handleExit}>Exit</button>
+//         </div>
+//       );
+      
+// }
+return (
+    <div>
+      <div>
+        <h3>Booking Queue</h3>
+        {bookingqueue.length > 0 ? (
+          bookingqueue.map((queue) => (
+            <div key={queue.id}>
+              <p>ID: {queue.id}</p>
+              <p>Customer ID: {queue.customer_id}</p>
+              <p>Nanny ID: {queue.nanny_id}</p>
+              <p>Start Date: {queue.start_date.toString()}</p>
+              <p>End Date: {queue.end_date.toString()}</p>
+              <p>Total Amount: {queue.total_amount}</p>
+              <p>Status Payment: {queue.status_payment}</p>
+              <p>Hours: {queue.hours}</p>
+
+              <div>
+                <button onClick={() => handleUpdateStatus(queue.id)}>Confirm</button>
+                <button onClick={() => handleUpdateStatusCancel(queue.id)}>Cancel</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No Notifications</p>
+        )}
+      </div>
+
+      <button onClick={handleExit}>Exit</button>
+    </div>
+  );
 }
 

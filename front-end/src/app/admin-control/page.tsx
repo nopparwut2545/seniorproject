@@ -52,7 +52,13 @@ type Nanny = {
     score: number;
     role: string;
 };
+type Role = 'USER' | 'ADMIN' |'NANNY' ;
 
+type DecodedToken = {
+  sub: string;
+  exp: number;
+  a: Role[];
+};
 // ของเก่า 
 export default function CustomersPage({ }: Props) {
     const [admin, setAdmin] = useState<Admin | null>(null);
@@ -95,7 +101,11 @@ export default function CustomersPage({ }: Props) {
         // Decode the JWT to extract user ID
         if (token) {
             const decodedToken: any = jwt_decode(token);
-
+            if (!decodedToken.a.includes('ADMIN')) {
+                setError('Access denied. You do not have the required permissions.');
+                setLoading(false);
+                return;
+              }
             // Extract user ID from the "sub" key in JWT
             const userId: number = decodedToken.sub;
 

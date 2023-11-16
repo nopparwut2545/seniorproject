@@ -186,111 +186,92 @@ export default function Page({ params }: { params: { username: string } }) {
     }, [params.username, response1]);
 
 
-
-    // const createBookingQueue = async () => {
-    //     try {
-
-    //         if (!startdate.dateTime || !enddate.dateTime) {
-    //             console.error('Nanny data or selected date is missing or null.');
-    //             return;
-    //         }
-
-    //         if (!nanny) {
-    //             console.error('Nanny data or selected date is missing or null.');
-    //             return;
-    //         }
-
-
-    //         const startDate = addHours(startdate.dateTime, 7);
-    //         const endDate = addHours(enddate.dateTime, 7);
-    //         // const username = response1.username
-    //         // console.log("NANNY ID", response1.id);
-    //         const bookingData: BookingQueue = {
-    //             customer_id: 1,
-    //             nanny_id: nanny.id,
-    //             start_date: startDate,
-    //             end_date: endDate,
-    //             total_amount: 75.50,
-    //             status_payment: 'Pending',
-    //             hours: 4,
-    //         };
-
-    //         const response = await axios.post<BookingQueue>('http://localhost:9000/api/bookingqueue', bookingData);
-    //         console.log('Booking created successfully:', response.data);
-    //     } catch (error) {
-    //         console.error('Error creating booking:', error);
-    //     }
-    // };
-
-    // const handleUpdateStatus = async () => {
-
-    //     try {
-
-    //         const bookingIds = bookingqueue.map((bookingqueues) => bookingqueues.id);
-    //         for (const bookingId of bookingIds) {
-
-    //             await axios.put(`http://localhost:9000/api/bookingqueue/updateStatusPaid/${bookingId}`, {
-    //                 status: 'Bookings',
-    //             });
-
-    //         }
-    //     } catch (err) {
-    //         if (err instanceof Error) {
-    //             console.error(err.message);
-    //         } else {
-    //             console.error('An error occurred while updating the status.');
-    //         }
-    //     }
-    // };
-
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     if (!customer) return <div>Customer not found.</div>;
     if (!nanny) return <div>Nanny not found.</div>;
+    if (!bookingqueue) return <div>Bookingqueue not found.</div>;
 
 
+    // return (
+    //     <div>
+    //         <h2>Payment</h2>
+    //         <div>
 
+    //             {/* <p>Username: {customer.username}</p>
+    //             <p>Email: {customer.email}</p>
+    //             <p>Contact_number: {customer.contact_number}</p>
+
+    //             <p>District: {customer.district}</p>
+    //             <p>Sub_district: {customer.sub_district}</p>
+
+    //             <p>Zip_code: {customer.zip_code}</p>
+    //             <p>Street_number: {customer.street_number}</p>
+    //             <p>Nanny ID: {nanny.id}</p> */}
+
+    //             {/* <div >
+    //                 {bookingqueue.map((bookingqueues) => (
+
+    //                     <div key={bookingqueues.id}>
+    //                         <p>ID Bookings: {bookingqueues.id}</p>
+
+    //                         <p>Customer ID: {bookingqueues.customer_id}</p>
+    //                         <p>Nanny ID: {bookingqueues.nanny_id}</p>
+    //                         <p>Start Date: {bookingqueues.start_date.toString()}</p>
+    //                         <p>End Date: {bookingqueues.end_date.toString()}</p>
+    //                     </div>
+
+    //                 ))}
+    //             </div> */}
+
+    //             <div>
+    //                 <Link href={`/confirmhiring/${nanny.username}`}>
+    //                     {/* <button onClick={() => handleUpdateStatus()}>Confirm</button> */}
+    //                     <button >Confirm</button>
+    //                 </Link>
+
+    //             </div>
+    //             <button onClick={handleExit}>Exit</button>
+    //         </div>
+    //     </div>
+    // );
     return (
         <div>
             <h2>Payment</h2>
             <div>
-
-                {/* <p>Username: {customer.username}</p>
-                <p>Email: {customer.email}</p>
-                <p>Contact_number: {customer.contact_number}</p>
-
-                <p>District: {customer.district}</p>
-                <p>Sub_district: {customer.sub_district}</p>
-
-                <p>Zip_code: {customer.zip_code}</p>
-                <p>Street_number: {customer.street_number}</p>
-                <p>Nanny ID: {nanny.id}</p> */}
-
-                {/* <div >
-                    {bookingqueue.map((bookingqueues) => (
-
-                        <div key={bookingqueues.id}>
-                            <p>ID Bookings: {bookingqueues.id}</p>
-
-                            <p>Customer ID: {bookingqueues.customer_id}</p>
-                            <p>Nanny ID: {bookingqueues.nanny_id}</p>
-                            <p>Start Date: {bookingqueues.start_date.toString()}</p>
-                            <p>End Date: {bookingqueues.end_date.toString()}</p>
-                        </div>
-
-                    ))}
-                </div> */}
-
+                {/* Other customer and nanny details here */}
+    
                 <div>
-                    <Link href={`/confirmhiring/${nanny.username}`}>
-                        {/* <button onClick={() => handleUpdateStatus()}>Confirm</button> */}
-                        <button >Confirm</button>
-                    </Link>
-
+                    {bookingqueue.length === 0 ? (
+                        <div>
+                            <p>No bookings yet. Please wait for the nanny to confirm.</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <div>
+                                {/* Render booking details when there are bookings */}
+                                {bookingqueue.map((bookingqueues) => (
+                                    <div key={bookingqueues.id}>
+                                        <p>ID Bookings: {bookingqueues.id}</p>
+                                        <p>Customer ID: {bookingqueues.customer_id}</p>
+                                        <p>Nanny ID: {bookingqueues.nanny_id}</p>
+                                        <p>Start Date: {bookingqueues.start_date.toString()}</p>
+                                        <p>End Date: {bookingqueues.end_date.toString()}</p>
+                                    </div>
+                                ))}
+                            </div>
+    
+                            <div>
+                                <Link href={`/confirmhiring/${nanny.username}`}>
+                                    <button>Confirm</button>
+                                </Link>
+                            </div>
+                        </div>
+                    )}
+    
+                    <button onClick={handleExit}>Exit</button>
                 </div>
-                <button onClick={handleExit}>Exit</button>
             </div>
         </div>
     );

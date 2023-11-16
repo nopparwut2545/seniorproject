@@ -1,6 +1,8 @@
 
 package com.example.demo.Service;
 
+import com.example.demo.Model.BookingHistory;
+import com.example.demo.Model.BookingQueue;
 import com.example.demo.Model.Customer;
 import com.example.demo.Model.Nanny;
 import com.example.demo.Repository.CustomerRepository;
@@ -70,5 +72,15 @@ public class CustomerService {
     }
 
 
+    public List<BookingHistory> getBookingDataByCustomerIdBH(Long customer_id) {
+        return customerRepository.findByCustomerIdBH(customer_id);
+    }
 
+    public List<BookingQueue> getBookingDataByCustomerIdBQ(Long customer_id) {
+        return customerRepository.findByCustomerIdBQ(customer_id);
+    }
+
+    public List<BookingQueue> findBQByCustomerIDStatusBookings(Long customer_id) {
+        return customerRepository.findBQByCustomerIDStatusBookings(customer_id);
+    }
 }

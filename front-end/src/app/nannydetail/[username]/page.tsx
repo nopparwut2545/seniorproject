@@ -5,7 +5,8 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt_decode from 'jwt-decode';
-
+import nanny1 from '../../../../assets/hanni.png'
+import Image from 'next/image';
 type Props = {};
 
 type Customer = {
@@ -24,7 +25,7 @@ type Customer = {
   role: string;
   age: number;
   gender: string;
-  locationall : string;
+  locationall: string;
 };
 
 type Nanny = {
@@ -94,44 +95,7 @@ export default function Page({ params }: { params: { username: string } }) {
   useEffect(() => {
     fetchData();
   }, [params.username]);
-      
-  // useEffect(() => {
-  //   const token = localStorage.getItem('jwt');
-  //   if (token) {
-  //     const decodedToken: any = jwt_decode(token);
 
-  //     const userId: number = decodedToken.sub;
-
-  //     if (!userId) {
-  //       setError("User ID not found in token.");
-  //       setLoading(false);
-  //       return;
-  //     }
-  //     console.log("User ID:", userId);
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getbyusername/${params.username}`);
-  //         const response1 = await axios.get<Customer>(
-  //           `http://localhost:9000/api/customers/${userId}`
-  //         );
-  //         setNanny(response.data);
-  //         setCustomer(response1.data);
-  //       } catch (err) {
-  //         if (err instanceof Error) {
-  //           setError(err.message);
-  //         } else {
-  //           setError('An error occurred.');
-  //         }
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     };
-
-  //   } else {
-  //     alert('You need to be logged in first.');
-  //     router.push('/login-user');
-  //   }
-  // }, [params.username]);
 
   const handleUpdateStatus = async (username: string) => {
     try {
@@ -158,29 +122,94 @@ export default function Page({ params }: { params: { username: string } }) {
   if (!nanny) return <div>Nanny not found.</div>;
 
   return (
-    <div>
-      <h2>Hiring Nanny</h2>
-      <div>
-        <p>Username: {nanny.username}</p>
-        <p>Name: {nanny.first_name}  {nanny.last_name}</p>
-        <p>Location: {customer.district}</p>
-        <p>Email: {nanny.email}</p>
-        <p>Contact Number: {nanny.contact_number}</p>
-        <p>Total: {nanny.cost}  baht</p>
-        <p>Total: {nanny.type_work}</p>
-        <p>Role: {nanny.role_level}</p>
+    // <div >
+    //   <div className="flex items-start justify-center h-screen ">
+    //     <div>
+    //       <h2>Hiring Nanny</h2>
+    //     </div>
+    //     <div className="bg-white p-5 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 xl:w-1/3">
+    //       <p>Username: {nanny.username}</p>
+    //       <p>Name: {nanny.first_name}  {nanny.last_name}</p>
+    //       <p>Location: {customer.district}</p>
+    //       <p>Email: {nanny.email}</p>
+    //       <p>Contact Number: {nanny.contact_number}</p>
+    //       <p>Total: {nanny.cost}  baht</p>
+    //       <p>Total: {nanny.type_work}</p>
+    //       <p>Role: {nanny.role_level}</p>
 
-        <div key={nanny.username}>
-          {/* Link to the nanny detail page */}
-          <Link href={`/nannydetaillocation/${nanny.username}`}>
-            <button onClick={() => handleUpdateStatus(nanny.username)}>Hiring</button>
-          </Link>
-          {/* ... nanny information */}
-          {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Hiring</button> */}
+
+    // <div >
+    //   <div className="block">
+    //     <div>
+    //       <h2>Hiring Nanny</h2>
+    //     </div>
+    //     <div className="bg-white p-5 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 xl:w-1/3">
+    //       {/* Rest of your content */}
+    //       <p>Username: {nanny.username}</p>
+    //       <p>Name: {nanny.first_name} {nanny.last_name}</p>
+    //       <p>Location: {customer.district}</p>
+    //       <p>Email: {nanny.email}</p>
+    //       <p>Contact Number: {nanny.contact_number}</p>
+    //       <p>Total: {nanny.cost} baht</p>
+    //       <p>Total: {nanny.type_work}</p>
+    //       <p>Role: {nanny.role_level}</p>
+
+    //       <div key={nanny.username}>
+    //         {/* Link to the nanny detail page */}
+    //         <Link href={`/nannydetaillocation/${nanny.username}`}>
+    //           <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Hiring</button>
+    //         </Link>
+    //         {/* ... nanny information */}
+    //         {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Hiring</button> */}
+    //       </div>
+    //       <button className="btn btn-primary" onClick={handleExit}>
+    //         Exit
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
+
+    <div >
+      <div className="block justify-center">
+        <div className="flex justify-center">
+          <h2>Hiring Nanny</h2>
         </div>
-        <button onClick={handleExit}>Exit</button>
+        {/* <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto"> */}
+        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+          <div className="flex" >
+            <div>
+              <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
+            </div>
+            <div className="ml-4">
+              <p>Username: {nanny.username}</p>
+              <p>Name: {nanny.first_name} {nanny.last_name}</p>
+              <p>Location: {customer.district}</p>
+              <p>Email: {nanny.email}</p>
+              <p>Contact Number: {nanny.contact_number}</p>
+              <p>Total: {nanny.cost} baht</p>
+              <p>Total: {nanny.type_work}</p>
+              <p>Role: {nanny.role_level}</p>
+
+              <div key={nanny.username}>
+                {/* Link to the nanny detail page */}
+                <Link href={`/nannydetaillocation/${nanny.username}`}>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Hiring</button>
+                </Link>
+                {/* ... nanny information */}
+                {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Hiring</button> */}
+                <button className="btn btn-primary ml-5" onClick={handleExit}>
+                Exit
+              </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
+
+
   );
 }
 

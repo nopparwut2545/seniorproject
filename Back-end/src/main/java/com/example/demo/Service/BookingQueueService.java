@@ -51,6 +51,10 @@ public class BookingQueueService {
         return bookingqueuerepository.findBookingsCheckdate(nanny_id);
     }
 
+    public List<BookingQueue>  getfindBookingsByCustomerID( Long customer_id) {
+        return bookingqueuerepository.findBookingsByCustomerID(customer_id);
+    }
+
     public BookingQueue saveBookingQueue(BookingQueue bookingqueue) {
 
         return bookingqueuerepository.save(bookingqueue);

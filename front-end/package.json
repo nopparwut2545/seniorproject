@@ -37,6 +37,7 @@
     "@types/mapbox-gl": "^2.7.17",
     "@types/react-calendar": "^4.1.0",
     "@types/sockjs-client": "^1.5.4",
-    "@types/stompjs": "^2.3.8"
+    "@types/stompjs": "^2.3.8",
+    "daisyui": "^4.0.9"
   }
 }

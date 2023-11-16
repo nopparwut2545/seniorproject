@@ -5,7 +5,8 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import jwt_decode from 'jwt-decode';
-
+import nanny1 from '../../../../assets/hanni.png'
+import Image from 'next/image';
 type Props = {};
 
 type Customer = {
@@ -24,7 +25,7 @@ type Customer = {
   role: string;
   age: number;
   gender: string;
-  locationall : string;
+  locationall: string;
 };
 
 type Nanny = {
@@ -94,24 +95,24 @@ export default function Page({ params }: { params: { username: string } }) {
     fetchData();
   }, [params.username]);
 
-//   const handleUpdateStatus = async (username: string) => {
-//     try {
-//       // Send a PUT request to the API endpoint to update the status
-//       await axios.put(`http://localhost:9000/api/nannies/updateStatus/${username}`, {
-//         status: 'Inactive',
-//       });
+  //   const handleUpdateStatus = async (username: string) => {
+  //     try {
+  //       // Send a PUT request to the API endpoint to update the status
+  //       await axios.put(`http://localhost:9000/api/nannies/updateStatus/${username}`, {
+  //         status: 'Inactive',
+  //       });
 
-//       // After a successful update, you can reload the data or perform other actions
-//       // For example, refetch the nannies list
-//       fetchData();
-//     } catch (err) {
-//       if (err instanceof Error) {
-//         console.error(err.message);
-//       } else {
-//         console.error('An error occurred while updating the status.');
-//       }
-//     }
-//   };
+  //       // After a successful update, you can reload the data or perform other actions
+  //       // For example, refetch the nannies list
+  //       fetchData();
+  //     } catch (err) {
+  //       if (err instanceof Error) {
+  //         console.error(err.message);
+  //       } else {
+  //         console.error('An error occurred while updating the status.');
+  //       }
+  //     }
+  //   };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -120,26 +121,41 @@ export default function Page({ params }: { params: { username: string } }) {
 
   return (
     <div>
-      <h2>Hiring Nanny</h2>
-      <div>
-        <p>Username: {nanny.username}</p>
-        <p>Name: {nanny.first_name}  {nanny.last_name}</p>
-        <p>Location: {customer .district}</p>
-        <p>Email: {nanny.email}</p>
-        <p>Contact Number: {nanny.contact_number}</p>
-        <p>Total: {nanny.cost}  baht</p>
-        <p>Total: {nanny.type_work}</p>
-        <p>Role: {nanny.role_level}</p>
-        {/* ... display other nanny information here */}
-
-        <div  key={nanny.username}>
-              {/* Link to the nanny detail page */}
-              <Link href={`/nannydetaildate/${nanny.username}`}>
-                <a>Hiring</a>
-              </Link>
-              {/* ... nanny information */}
-              {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+      <div className="block justify-center">
+        <div className="flex justify-center">
+          <h2>Hiring Nanny</h2>
+        </div>
+        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+         
+          <div className="flex flex-col md:flex-row items-center md:items-start">
+            <div className="mb-4 md:mr-4">
+              <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
             </div>
+
+            <div className="mb-4 md:mb-0">
+              <p>Username: {nanny.username}</p>
+              <p>Name: {nanny.first_name} {nanny.last_name}</p>
+              <p>Location: {customer.district}</p>
+              <p>Email: {nanny.email}</p>
+              <p>Contact Number: {nanny.contact_number}</p>
+              <p>Total: {nanny.type_work}</p>
+              <p>Role: {nanny.role_level}</p>
+            </div>
+
+            <div>
+              <p>Total: {nanny.cost} baht</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center mt-8"  key={nanny.username}>
+          {/* Link to the nanny detail page */}
+          <Link href={`/nannydetaildate/${nanny.username}`}>
+            <a>Hiring</a>
+          </Link>
+          {/* ... nanny information */}
+          {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+        </div>
       </div>
       <button onClick={handleExit}>Exit</button>
     </div>

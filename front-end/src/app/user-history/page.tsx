@@ -81,7 +81,7 @@ export default function CustomersPage({ }: Props) {
 
     const handleExit = () => {
         localStorage.removeItem('jwt'); // Remove the JWT token
-        router.push('/login-nanny'); // Redirect to /login
+        router.push('/login-user'); // Redirect to /login
     };
 
     
@@ -91,13 +91,16 @@ export default function CustomersPage({ }: Props) {
         // Decode the JWT to extract user ID
         if (token) {
             const decodedToken: any = jwt_decode(token);
-            if (!decodedToken.a.includes('NANNY')) {
-              setError('Access denied. You do not have the required permissions.');
-              setLoading(false);
-              return;
-            }
+
             // Extract user ID from the "sub" key in JWT
-            const userId = decodedToken.sub;
+            if (!decodedToken.a.includes('USER')) {
+                setError('Access denied. You do not have the required permissions.');
+                setLoading(false);
+                return;
+              }
+        
+              // Extract user ID from the "sub" key in JWT
+              const userId = decodedToken.sub;
 
             if (!userId) {
                 setError("User ID not found in token.");
@@ -109,11 +112,11 @@ export default function CustomersPage({ }: Props) {
             const fetchData = async () => {
                 try {
                     // const response = await axios.get(`http://localhost:9000/api/admins/${userId}`);
-                    const response1 = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${userId}`);
+                    const response1 = await axios.get<Nanny>(`http://localhost:9000/api/customers/${userId}`);
                     // const response2 = await axios.get<BookingHistory>(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
                     // const response3 = await axios.get<BookingQueue>(`http://localhost:9000/api/nannies/booking-dataBQ/${userId}`);
-                    const response2 = await axios.get(`http://localhost:9000/api/nannies/booking-dataBH/${userId}`);
-                    const response3 = await axios.get(`http://localhost:9000/api/nannies/booking-dataBQ/${userId}`);
+                    const response2 = await axios.get(`http://localhost:9000/api/customers/bookingcs-dataBH/${userId}`);
+                    const response3 = await axios.get(`http://localhost:9000/api/customers/bookingcs-dataBQ/${userId}`);
                     // setAdmin(response.data);
                     setnanny(response1.data); 
                     setbookinghistory(response2.data);
@@ -136,7 +139,7 @@ export default function CustomersPage({ }: Props) {
             fetchData();
         } else {
             alert('You need to be logged in first.');
-            router.push('/login-admin');
+            router.push('/login-user');
         }
     }, []);
 

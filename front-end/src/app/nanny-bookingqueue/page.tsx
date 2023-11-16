@@ -54,7 +54,13 @@ type BookingHistory = {
     status: string,
     time_session: number
 };
+type Role = 'USER' | 'ADMIN' |'NANNY' ;
 
+type DecodedToken = {
+  sub: string;
+  exp: number;
+  a: Role[];
+};
 // ของเก่า 
 export default function CustomersPage({ }: Props) {
 
@@ -83,7 +89,11 @@ export default function CustomersPage({ }: Props) {
         // Decode the JWT to extract user ID
         if (token) {
             const decodedToken: any = jwt_decode(token);
-
+            if (!decodedToken.a.includes('NANNY')) {
+                setError('Access denied. You do not have the required permissions.');
+                setLoading(false);
+                return;
+              }
             // Extract user ID from the "sub" key in JWT
             const userId: number = decodedToken.sub;
 
@@ -125,7 +135,7 @@ export default function CustomersPage({ }: Props) {
             fetchData();
         } else {
             alert('You need to be logged in first.');
-            router.push('/login-admin');
+            router.push('/login-nanny');
         }
     }, []);
 
