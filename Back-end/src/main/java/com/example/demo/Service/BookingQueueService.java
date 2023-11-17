@@ -80,4 +80,7 @@ public class BookingQueueService {
     public void updateStatusByPaidSuccess(Long bookingID) {
         bookingqueuerepository.updateStatusByPaidSuccess(bookingID);
     }
+    public List<String> findPaidNannyIdsByCustomerId(Long customerId) {
+        return bookingqueuerepository.findPaidNannyIdsByCustomerId(customerId);
+    }
 }

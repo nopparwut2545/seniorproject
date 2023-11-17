@@ -59,4 +59,7 @@ public interface BookingQueueRepository extends JpaRepository<BookingQueue, Long
 
     @Query("SELECT n FROM BookingQueue n WHERE  n.customer_id = :customer_id  ")
     List<BookingQueue> findBookingsByCustomerID(@Param("customer_id") Long customer_id);
+
+    @Query("SELECT n.username FROM BookingQueue bk join Nanny n on bk.nanny_id = n.nannyId  WHERE bk.customer_id = :customerId AND bk.status_payment = 'Paid'")
+    List<String> findPaidNannyIdsByCustomerId(@Param("customerId") Long customerId);
 }

@@ -142,4 +142,10 @@ public class  BookingQueueController {
         }
     }
 
+    @GetMapping("/paid-nannies/{customerId}")
+    public List<String> getPaidNannyIdsForCustomer(@PathVariable Long customerId) {
+        return bookingqueueService.findPaidNannyIdsByCustomerId(customerId);
+    }
+
+
 }
