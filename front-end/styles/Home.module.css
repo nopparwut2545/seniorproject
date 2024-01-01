@@ -1,85 +1,41 @@
-.body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .fullpage {
-    background: linear-gradient(89deg, #FFA3BA 3.5%, #D8CFFF 99.37%);
-    color: white;
-    font-size: 24px;
-    padding: 1% 2%;
-    margin: 1em;
-    display: flex;
-  }
-  
-  .introtext {
-    display: flex;
-  
-    flex-direction: column;
-  
-    align-items: center;
-  
-    justify-content: center;
-  
-    width: 40%;
-  
-    padding: 10px;
-    margin: 5px;
-  }
-  
-  .textline {
-    line-height: 1;
-  
-  }
-  
-  .textlastline {
-    padding: 1% 2%;
-    margin-top: 5%;
-  }
-  
-  .whiteText {
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-  
-  .pinkText {
-    background: linear-gradient(180deg, #FAA0A0 0%, #D62EBB 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: Montserrat;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
-  
-  .orangeText {
-    background: linear-gradient(180deg, #BE5E5E 0%, #FF7093 94.27%, #FF7093 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: Montserrat;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
-  
-  .detailText {
-    word-wrap: break-word;
-    color: #BE5E5E;
-    font-family: Comfortaa;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 520;
-    line-height: normal;
-  }
-  
-  .buttonstart {
+.rootContainer {
+  background: linear-gradient(89deg, #FFA3BA 3.5%, #D8CFFF 99.37%);
+}
+
+
+.whiteText {
+  color: #FFF;
+  font-family: Montserrat;
+}
+
+.pinkText{
+  background: linear-gradient(180deg, #FAA0A0 0%, #D62EBB 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Montserrat;
+}
+
+.orangeText {
+  background: linear-gradient(180deg, #BE5E5E 0%, #FF7093 94.27%, #FF7093 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Montserrat;
+}
+
+.shortWord {
+  color: #BE5E5E;
+}
+
+.editButton{
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.editButt{
+    padding: 35px;
     color: #FFF;
     text-align: center;
     font-family: Montserrat;
@@ -88,314 +44,80 @@
     font-weight: 500;
     line-height: normal;
     display: flex;
-  
     align-items: center;
-  
     justify-content: center;
-  
-    width: 40%;
-  
-    max-width: 343.292px;
-  
-    height: 13 vw;
     border-radius: 40px;
     background: linear-gradient(90deg, #FF7093 0%, #FFB9B9 100%);
-    padding: 2% 4%;
-  
-    margin: 1em;
-    margin-top: 8%;
-  }
-  
-  .intropic {
-    width: 60%;
-    padding: 10px;
-    margin: 5px;
-  }
-  
-  .intropic>div {
-    width: 800px;
-    height: 320px;
-    overflow: hidden;
-  }
-  
-  .intropic img {
-    max-width: none;
-    height: auto;
-  }
-  
-  
-  
-  .navfeature {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .box3features {
-    margin: 1em;
-    width: 100%;
-    max-width: 1330px;
-    min-height: 120px;
-    flex-shrink: 0;
-    border-radius: 104.5px;
-    background: #FF7093;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Media query for smaller screens (adjust the breakpoint as needed) */
-  @media (max-width: 768px) {
-    .box3features {
-      margin: 1em;
-      width: 100%;
-      /* Adjust the maximum width for smaller screens */
-      max-width: 640px;
-      display: flex;
-      min-height: 75px;
-      border-radius: 104.5px;
-      background: #FF7093;
-      justify-content: center;
-    }
-  }
-  
-  .featurebars {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width: 30%;
-  }
-  
-  .iconfeature {
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    width: 30%;
-  
-  }
-  
-  .textfeature {
-  
-    text-align: start;
-    margin-left: 3%;
-    height: 100%;
-    /* Set the height to 100% of the parent's height */
-    box-sizing: border-box;
-    border-right: 2px solid #FFB9B9;
-    width: 70%;
-  
-  }
-  
-  .textfeaturelast {
-    text-align: start;
-    margin-left: 3%;
-    height: 100%;
-    /* Set the height to 100% of the parent's height */
-    box-sizing: border-box;
-    width: 70%;
-  
-  }
-  
-  .whitetextfeature {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    color: #FFF;
-    text-align: center;
-    font-family: Comfortaa;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 200;
-    line-height: normal;
-  }
-  
-  .textwhynanny {
-    margin: 3em;
-  }
-  
-  .whiteTextwhynanny {
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 52px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-  
-  
-  .orangeTextwhynanny {
-    background: linear-gradient(180deg, #BE5E5E 0%, #FF7093 94.27%, #FF7093 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: Montserrat;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
-  
-  .devicedetailtext {
+    width: 343.292px;
+    height: 77px;
+}
+
+.editImgContainer {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.bgContainer {
+  background: #FF7093;
+  padding: 40px;
+  margin: 20px;
+  border-radius: 80px;
+  color: #FFF;
+  font-weight: 400;
+  width: 100%;
+}
+
+
+.textPinkBG {
+  font-family: Montserrat;
+}
+
+.textPromote {
     word-wrap: break-word;
     color: #BE5E5E;
-    font-family: Comfortaa;
-    font-size: 28px;
+    font-family: Montserrat;
+    font-size: 32px;
     letter-spacing: 0.8px;
     font-style: normal;
     font-weight: 1000;
     line-height: normal;
-    
-  }
-  
-  .showdevice {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .bigtext {
-  
-  }
-  
-  .bigphone {
-    width: 20%;
-    position: relative;
-  }
-  .phoneContainer {
-    position: relative; /* To contain absolute-positioned elements */
-    width: 250px; /* Set the width and height to match your images */
-    height: 580px;
-  }
-  
-  .phoneContainer img {
-    position: absolute; /* Position the images absolutely */
-    width: 100%; /* Set width to 100% to fill the container width */
-    height: 100%; /* Set height to 100% to fill the container height */
-    top: 0; /* Position the top image at the top */
-    left: 0; /* Position the top image at the left */
-    
-  }
-  
-  .phoneContainer img:last-child {
-   
-    width: 210px;
-    height: 550px;
-    /* Top right bottom left    */
-    margin: 4.5% 15% 6% 11%;
-    
-  
-   
-  }
-  
-  .bigphone2 {
-    width: 60%;
-    margin: 1em;
-  }
-  
-  .bigphone3 {
-    width: 100%;
-    margin-top: 8%;
-    position: relative;
-  }
-  .pcContainer {
-    position: relative; /* To contain absolute-positioned elements */
-    width: 620px; /* Set the width and height to match your images */
-    height: 320px;
-  }
-  
-  .pcContainer img {
-    position: absolute; /* Position the images absolutely */
-    width: 100%; /* Set width to 100% to fill the container width */
-    height: 100%; /* Set height to 100% to fill the container height */
-    top: 0; /* Position the top image at the top */
-    left: 0; /* Position the top image at the left */
-    
-  }
-  
-  .pcContainer img:last-child {
-   
-    width: 470px;
-    height: 275px;
-    /* Top right bottom left    */
-    margin: 1% 5% 3% 12%;
-    
-  
-   
-  }
-  
-  .servicepart {
-    margin: 3em;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .servicefeaturebox {
-    margin: 1em;
-    display: flex;
-    justify-content: center;
-  
-  }
-  
-  .servicetext {
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    color: #FF7093;
-    font-family: Montserrat;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  
-  .servicedetailbox {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-right: 1%;
-    border-radius: 40px;
-    background: radial-gradient(50% 50% at 50% 50%, #FF7093 0%, #FFE0E0 100%);
-    width: 210px;
-    height: 311px;
-  }
-  
-  .centeredDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 10px;
-  }
-  
-  .servicetextdetail {
-    margin-top: 2%;
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  
-  .buttontryit {
-    margin: 20% 20%;
-    color: #0d0d0d;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 343.292px;
-    /* Set a maximum width for the button */
-    width: 110px;
-    height: 36px;
-    border-radius: 40px;
-    background: #FF7093;
-    padding: 2% 4%;
-  }
+}
+
+
+.serviceText {
+  color: #FF7093;
+  font-family: Montserrat;
+}
+
+.editServiceHome {
+  text-align: center;
+  padding: 2px;
+  margin: 5px;
+  background: radial-gradient(circle, #FF7093, #FFE0E0);
+  width: 200px;
+  height: 300px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.editServiceHome img {
+  margin-top: 20px;
+  border-radius: 50%;
+}
+
+.editServiceHome span {
+  margin-top: 10px;
+  font-family: Montserrat;
+}
+
+.tryButton {
+  margin-top: 10px;
+  background: #FF7093;
+  padding: 2px;
+  border-radius: 40px;
+  text-decoration: none;
+}
