@@ -30,7 +30,7 @@ type Customer = {
     role: string;
     age: number;
     gender: string;
-    locationall : string;
+    locationall: string;
 };
 
 type Nanny = {
@@ -99,6 +99,8 @@ export default function Page({ params }: { params: { username: string } }) {
     const [error, setError] = useState<string | null>(null);
     const [value, onChange] = useState<Value>(new Date());
     const [response1, setResponse1] = useState<Nanny | null>(null);
+    const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+    const [selectedTime2, setSelectedTime2] = useState<Date | null>(null);
     const [startdate, setstartDate] = useState<DateType>({
         justDate: null,
         dateTime: null,
@@ -338,108 +340,469 @@ export default function Page({ params }: { params: { username: string } }) {
     // if (!checkbk) return <div>BKK Test not found.</div>;
 
     if (!checkbktest) return <div>BKK Test not found 2.</div>;
+    // return (
+    //     <div>
+    //         <div className="block justify-center">
+    //             <div className="flex justify-center">
+    //                 <h2>Hiring Date</h2>
+    //             </div>
+    //             <p>createBookingQueues</p>
+    //             {/* <div className='h-screen flex flex-col justify-center items-center'> */}
+    //             {startdate.justDate ? (
+    //                 <div>
+    //                     <div className='flex gap-4'>
+    //                         {starttimes?.map((time, i) => (
+    //                             <div key={`time-${i}`} className='rounded-sm bg-grey-100 p-2'>
+    //                                 <button
+    //                                     type='button'
+    //                                     onClick={() => setstartDate((prev) => ({ ...prev, dateTime: time }))}
+    //                                 >
+    //                                     {format(time, 'kk:mm')}
+    //                                 </button>
+    //                             </div>
+    //                         ))}
+    //                     </div>
+
+    //                 </div>
+    //             ) : (
+    //                 <DateTimePicker
+    //                     className='REACT-CALENDAR p-2'
+    //                     onChange={onChange}
+    //                     value={value}
+    //                     view='month'
+    //                     onClickDay={(date) => {
+    //                         setstartDate((prev) => ({ ...prev, justDate: date }));
+    //                         console.log("Selected Date:", date); // Access the selected date here
+    //                     }}
+    //                 />
+    //             )}
+    //             {/* </div> */}
+
+    //             {/* ------------------------------------------------------------ */}
+
+    //             {/* <div className='h-screen flex flex-col justify-center items-center'> */}
+    //             {enddate.justDate ? (
+    //                 <div>
+    //                     <div className='flex gap-4'>
+    //                         {endtimes?.map((time, i) => (
+    //                             <div key={`time-${i}`} className='rounded-sm bg-grey-100 p-2'>
+    //                                 <button
+    //                                     type='button'
+    //                                     onClick={() => setEndtDate((prev) => ({ ...prev, dateTime: time }))}
+    //                                 >
+    //                                     {format(time, 'kk:mm')}
+    //                                 </button>
+    //                             </div>
+    //                         ))}
+    //                     </div>
+
+    //                 </div>
+    //             ) : (
+    //                 <DateTimePicker
+    //                     className='REACT-CALENDAR p-2'
+    //                     onChange={onChange}
+    //                     value={value}
+    //                     view='month'
+    //                     onClickDay={(date) => {
+    //                         setEndtDate((prev) => ({ ...prev, justDate: date }));
+    //                         console.log("Selected Date:", date); // Access the selected date here
+    //                     }}
+    //                 />
+    //             )}
+    //             {/* </div> */}
+
+    //             <p>Username: {customer.username}</p>
+    //             <p>Email: {customer.email}</p>
+    //             <p>Contact_number: {customer.contact_number}</p>
+
+    //             <p>District: {customer.district}</p>
+    //             <p>Sub_district: {customer.sub_district}</p>
+
+    //             <p>Zip_code: {customer.zip_code}</p>
+    //             <p>Street_number: {customer.street_number}</p>
+    //             <p>Nanny ID: {nanny.id}</p>
+    //             {/* ... display other nanny information here */}
+
+    //             {/* <p>Booking Check Start Date: {checkbk.start_date.toString()}</p>
+    //             <p>Booking Check End Date: {checkbk.end_date.toString()}</p> */}
+
+    //             {checkbktest.map((nanny) => (
+
+    //                 <div key={nanny.id}>
+    //                     <p>Booking Check ID TEST: {nanny.id}</p>
+    //                     <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
+    //                     <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
+    //                     <p>Booking Check ID TEST: {nanny.status_payment}</p>
+    //                 </div>
+
+    //             ))}
+
+    //             <button onClick={() => createBookingQueue()}>Confirm</button>
+    //             <Link href={`/payment/${nanny.username}`}>
+    //                 Next
+    //             </Link>
+    //             <button onClick={handleExit}>Exit</button>
+    //         </div>
+    //     </div>
+    // );
+    // return (
+    //     <div>
+    //       <div className="block justify-center">
+    //         <div className="flex justify-center">
+    //           <h2>Hiring Date</h2>
+    //         </div>
+    //         <p>createBookingQueues</p>
+
+    //         {startdate.justDate ? (
+    //           <div>
+    //             <div className="flex gap-4">
+    //               {starttimes?.map((time, i) => (
+    //                 <div
+    //                   key={`time-${i}`}
+    //                   className={`rounded-sm p-2 ${
+    //                     selectedTime &&
+    //                     selectedTime.getTime() === time.getTime()
+    //                       ? 'bg-blue-500 text-white' // Change background color on selection
+    //                       : 'bg-gray-100'
+    //                   }`}
+    //                 >
+    //                   <button
+    //                     type="button"
+    //                     onClick={() => {
+    //                       setstartDate((prev) => ({ ...prev, dateTime: time }));
+    //                       setSelectedTime(time); // Update selected time
+    //                     }}
+    //                   >
+    //                     {format(time, 'kk:mm')}
+    //                   </button>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+    //         ) : (
+    //           <DateTimePicker
+    //             className="REACT-CALENDAR p-2"
+    //             onChange={onChange}
+    //             value={value}
+    //             view="month"
+    //             onClickDay={(date) => {
+    //               setstartDate((prev) => ({ ...prev, justDate: date }));
+    //               console.log('Selected Date:', date); // Access the selected date here
+    //             }}
+    //           />
+    //         )}
+
+    //         {enddate.justDate ? (
+    //           <div>
+    //             <div className="flex gap-4">
+    //               {endtimes?.map((time, i) => (
+    //                 <div
+    //                   key={`time-${i}`}
+    //                   className={`rounded-sm p-2 ${
+    //                     selectedTime &&
+    //                     selectedTime.getTime() === time.getTime()
+    //                       ? 'bg-blue-500 text-white' // Change background color on selection
+    //                       : 'bg-gray-100'
+    //                   }`}
+    //                 >
+    //                   <button
+    //                     type="button"
+    //                     onClick={() => {
+    //                       setEndtDate((prev) => ({ ...prev, dateTime: time }));
+    //                       setSelectedTime(time); // Update selected time
+    //                     }}
+    //                   >
+    //                     {format(time, 'kk:mm')}
+    //                   </button>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+    //         ) : (
+    //           <DateTimePicker
+    //             className="REACT-CALENDAR p-2"
+    //             onChange={onChange}
+    //             value={value}
+    //             view="month"
+    //             onClickDay={(date) => {
+    //               setEndtDate((prev) => ({ ...prev, justDate: date }));
+    //               console.log('Selected Date:', date); // Access the selected date here
+    //             }}
+    //           />
+    //         )}
+
+    //         <p>Username: {customer.username}</p>
+    //         <p>Email: {customer.email}</p>
+    //         <p>Contact_number: {customer.contact_number}</p>
+
+    //         <p>District: {customer.district}</p>
+    //         <p>Sub_district: {customer.sub_district}</p>
+
+    //         <p>Zip_code: {customer.zip_code}</p>
+    //         <p>Street_number: {customer.street_number}</p>
+    //         <p>Nanny ID: {nanny.id}</p>
+
+    //         {checkbktest.map((nanny) => (
+    //           <div key={nanny.id}>
+    //             <p>Booking Check ID TEST: {nanny.id}</p>
+    //             <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
+    //             <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
+    //             <p>Booking Check ID TEST: {nanny.status_payment}</p>
+    //           </div>
+    //         ))}
+
+    //         <button onClick={() => createBookingQueue()}>Confirm</button>
+    //         <Link href={`/payment/${nanny.username}`}>Next</Link>
+    //         <button onClick={handleExit}>Exit</button>
+    //       </div>
+    //     </div>
+    //   );
+
+
+    // return (
+    //     <div>
+    //       <div className="block justify-center">
+    //         <div className="flex justify-center">
+    //           <h2 className="text-2xl font-bold">Hiring Date</h2>
+    //         </div>
+    //         <p className="text-lg">Create Booking Queues</p>
+
+    //         {startdate.justDate ? (
+    //           <div>
+    //             <div className="flex gap-4">
+    //               {starttimes?.map((time, i) => (
+    //                 <div key={`time-${i}`} className="rounded-md bg-gray-200 p-2">
+    //                   <button
+    //                     type="button"
+    //                     onClick={() =>
+    //                       setstartDate((prev) => ({ ...prev, dateTime: time }))
+    //                     }
+    //                   >
+    //                     {format(time, 'kk:mm')}
+    //                   </button>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+    //         ) : (
+    //           <DateTimePicker
+    //             className="REACT-CALENDAR p-2"
+    //             onChange={onChange}
+    //             value={value}
+    //             view="month"
+    //             onClickDay={(date) => {
+    //               setstartDate((prev) => ({ ...prev, justDate: date }));
+    //               console.log('Selected Date:', date);
+    //             }}
+    //           />
+    //         )}
+
+    //         {enddate.justDate ? (
+    //           <div>
+    //             <div className="flex gap-4">
+    //               {endtimes?.map((time, i) => (
+    //                 <div key={`time-${i}`} className="rounded-md bg-gray-200 p-2">
+    //                   <button
+    //                     type="button"
+    //                     onClick={() =>
+    //                       setEndtDate((prev) => ({ ...prev, dateTime: time }))
+    //                     }
+    //                   >
+    //                     {format(time, 'kk:mm')}
+    //                   </button>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+    //         ) : (
+    //           <DateTimePicker
+    //             className="REACT-CALENDAR p-2"
+    //             onChange={onChange}
+    //             value={value}
+    //             view="month"
+    //             onClickDay={(date) => {
+    //               setEndtDate((prev) => ({ ...prev, justDate: date }));
+    //               console.log('Selected Date:', date);
+    //             }}
+    //           />
+    //         )}
+
+    //         <p className="mt-4">Username: {customer.username}</p>
+    //         <p>Email: {customer.email}</p>
+    //         <p>Contact Number: {customer.contact_number}</p>
+
+    //         <p>District: {customer.district}</p>
+    //         <p>Sub-district: {customer.sub_district}</p>
+
+    //         <p>Zip Code: {customer.zip_code}</p>
+    //         <p>Street Number: {customer.street_number}</p>
+    //         <p>Nanny ID: {nanny.id}</p>
+
+    //         {checkbktest.map((nanny) => (
+    //           <div key={nanny.id} className="mt-4">
+    //             <p>Booking Check ID TEST: {nanny.id}</p>
+    //             <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
+    //             <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
+    //             <p>Booking Check ID TEST: {nanny.status_payment}</p>
+    //           </div>
+    //         ))}
+
+    //         <button
+    //           className="bg-blue-500 text-white p-2 mt-4"
+    //           onClick={() => createBookingQueue()}
+    //         >
+    //           Confirm
+    //         </button>
+    //         <Link href={`/payment/${nanny.username}`} passHref>
+    //           <a className="text-blue-500 underline ml-2">Next</a>
+    //         </Link>
+    //         <button
+    //           className="bg-gray-500 text-white p-2 ml-2"
+    //           onClick={handleExit}
+    //         >
+    //           Exit
+    //         </button>
+    //       </div>
+    //     </div>
+    //   );
+
+
     return (
         <div>
-            <h2>Hiring Date</h2>
-            <div>
-                <p>createBookingQueues</p>
-                {/* <div className='h-screen flex flex-col justify-center items-center'> */}
+            <div className="block justify-center">
+                <div className="flex justify-center">
+                    <h2 className="text-2xl font-bold">Hiring Date</h2>
+                </div>
+                <p className="text-lg">Create Booking Queues</p>
+
                 {startdate.justDate ? (
                     <div>
-                        <div className='flex gap-4'>
+                        <div className="flex gap-4">
                             {starttimes?.map((time, i) => (
-                                <div key={`time-${i}`} className='rounded-sm bg-grey-100 p-2'>
+                                <div
+                                    key={`time-${i}`}
+                                    className={`rounded-md bg-gray-200 p-2 ${selectedTime && selectedTime.getTime() === time.getTime()
+                                        ? 'bg-blue-500 text-white' // Change background color on selection
+                                        : ''
+                                        }`}
+                                >
                                     <button
-                                        type='button'
-                                        onClick={() => setstartDate((prev) => ({ ...prev, dateTime: time }))}
+                                        type="button"
+                                        onClick={() => {
+                                            setstartDate((prev) => ({ ...prev, dateTime: time }));
+                                            setSelectedTime(time); // Update selected time
+                                        }}
                                     >
                                         {format(time, 'kk:mm')}
                                     </button>
                                 </div>
                             ))}
                         </div>
-
+                        <button
+                            className="bg-gray-500 text-white p-2 mt-2"
+                            onClick={() => {
+                                setstartDate((prev) => ({ ...prev, justDate: null }));
+                                setSelectedTime(null);
+                            }}
+                        >
+                            Clear Selection
+                        </button>
                     </div>
                 ) : (
                     <DateTimePicker
-                        className='REACT-CALENDAR p-2'
+                        className="REACT-CALENDAR p-2"
                         onChange={onChange}
                         value={value}
-                        view='month'
+                        view="month"
                         onClickDay={(date) => {
                             setstartDate((prev) => ({ ...prev, justDate: date }));
-                            console.log("Selected Date:", date); // Access the selected date here
+                            console.log('Selected Date:', date);
                         }}
                     />
                 )}
-                {/* </div> */}
 
-                {/* ------------------------------------------------------------ */}
-
-                {/* <div className='h-screen flex flex-col justify-center items-center'> */}
                 {enddate.justDate ? (
                     <div>
-                        <div className='flex gap-4'>
+                        <div className="flex gap-4">
                             {endtimes?.map((time, i) => (
-                                <div key={`time-${i}`} className='rounded-sm bg-grey-100 p-2'>
+                                <div
+                                    key={`time-${i}`}
+                                    className={`rounded-md bg-gray-200 p-2 ${selectedTime2 && selectedTime2.getTime() === time.getTime()
+                                        ? 'bg-blue-500 text-white' // Change background color on selection
+                                        : ''
+                                        }`}
+                                >
                                     <button
-                                        type='button'
-                                        onClick={() => setEndtDate((prev) => ({ ...prev, dateTime: time }))}
+                                        type="button"
+                                        onClick={() => {
+                                            setEndtDate((prev) => ({ ...prev, dateTime: time }));
+                                            setSelectedTime2(time); // Update selected time
+                                        }}
                                     >
                                         {format(time, 'kk:mm')}
                                     </button>
                                 </div>
                             ))}
                         </div>
-
+                        <button
+                            className="bg-gray-500 text-white p-2 mt-2"
+                            onClick={() => {
+                                setEndtDate((prev) => ({ ...prev, justDate: null }));
+                                setSelectedTime2(null);
+                            }}
+                        >
+                            Clear Selection
+                        </button>
                     </div>
                 ) : (
                     <DateTimePicker
-                        className='REACT-CALENDAR p-2'
+                        className="REACT-CALENDAR p-2"
                         onChange={onChange}
                         value={value}
-                        view='month'
+                        view="month"
                         onClickDay={(date) => {
                             setEndtDate((prev) => ({ ...prev, justDate: date }));
-                            console.log("Selected Date:", date); // Access the selected date here
+                            console.log('Selected Date:', date);
                         }}
                     />
                 )}
-                {/* </div> */}
 
-                <p>Username: {customer.username}</p>
+                <p className="mt-4">Username: {customer.username}</p>
                 <p>Email: {customer.email}</p>
-                <p>Contact_number: {customer.contact_number}</p>
+                <p>Contact Number: {customer.contact_number}</p>
 
                 <p>District: {customer.district}</p>
-                <p>Sub_district: {customer.sub_district}</p>
+                <p>Sub-district: {customer.sub_district}</p>
 
-                <p>Zip_code: {customer.zip_code}</p>
-                <p>Street_number: {customer.street_number}</p>
+                <p>Zip Code: {customer.zip_code}</p>
+                <p>Street Number: {customer.street_number}</p>
                 <p>Nanny ID: {nanny.id}</p>
-                {/* ... display other nanny information here */}
-
-                {/* <p>Booking Check Start Date: {checkbk.start_date.toString()}</p>
-                <p>Booking Check End Date: {checkbk.end_date.toString()}</p> */}
 
                 {checkbktest.map((nanny) => (
-
-                    <div key={nanny.id}>
+                    <div key={nanny.id} className="mt-4">
                         <p>Booking Check ID TEST: {nanny.id}</p>
                         <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
                         <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
                         <p>Booking Check ID TEST: {nanny.status_payment}</p>
                     </div>
-
                 ))}
 
-                <button onClick={() => createBookingQueue()}>Confirm</button>
-                <Link href={`/payment/${nanny.username}`}>
-                    Next
+                <button
+                    className="bg-blue-500 text-white p-2 mt-4"
+                    onClick={() => createBookingQueue()}
+                >
+                    Confirm
+                </button>
+                <Link href={`/payment/${nanny.username}`} passHref>
+                    <a className="text-blue-500 underline ml-2">Next</a>
                 </Link>
-                <button onClick={handleExit}>Exit</button>
+                <button
+                    className="bg-gray-500 text-white p-2 ml-2"
+                    onClick={handleExit}
+                >
+                    Exit
+                </button>
             </div>
         </div>
     );
-
 }

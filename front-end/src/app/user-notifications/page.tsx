@@ -55,12 +55,12 @@ type BookingHistory = {
     time_session: number
 };
 
-type Role = 'USER' | 'ADMIN' |'NANNY' ;
+type Role = 'USER' | 'ADMIN' | 'NANNY';
 
 type DecodedToken = {
-  sub: string;
-  exp: number;
-  a: Role[];
+    sub: string;
+    exp: number;
+    a: Role[];
 };
 
 // ของเก่า 
@@ -95,7 +95,7 @@ export default function CustomersPage({ }: Props) {
                 setError('Access denied. You do not have the required permissions.');
                 setLoading(false);
                 return;
-              }
+            }
             // Extract user ID from the "sub" key in JWT
             const userId: number = decodedToken.sub;
 
@@ -111,8 +111,17 @@ export default function CustomersPage({ }: Props) {
                     const response = await axios.get<BookingQueue[]>(`http://localhost:9000/api/bookingqueue/getbookingsbycustomer/${userId}`);
                     setbookingqueue(response.data);
                     setLoading(false);
-                    const response1 = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${userId}`);
-                    setnanny(response1.data);
+                    // const response1 = await axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${userId}`);
+                    // setnanny(response1.data);
+                    const nannyIds = response.data.map((queue) => queue.nanny_id);
+                    const nanniesResponse = await Promise.all(
+                        nannyIds.map((nannyId) =>
+                            axios.get<Nanny>(`http://localhost:9000/api/nannies/getby/${nannyId}`)
+                        )
+                    );
+                    const nanniesData = nanniesResponse.map((res) => res.data);
+                    setNannies(nanniesData);
+                    console.log(nanniesData);
                 } catch (err) {
                     if (err instanceof Error) {
                         setError(err.message);
@@ -204,7 +213,7 @@ export default function CustomersPage({ }: Props) {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    if (!nanny) return <div>Nanny Not found {error}</div>;
+    if (!nannies) return <div>Nanny Not found {error}</div>;
     if (!bookingqueue) return <div>Bookingqueue Not found {error}</div>;
     // return (
     //     <div>
@@ -304,6 +313,65 @@ export default function CustomersPage({ }: Props) {
         }
     };
 
+    // return (
+    //     <div>
+    //         <div>
+    //             <h3>Booking Queue</h3>
+    //             {bookingqueue.length > 0 ? (
+    //                 bookingqueue.map((queue) => (
+    //                     <div key={queue.id}>
+    //                         {queue.status_payment === 'Paid' && (
+    //                             <div>
+    //                                 <p>ID: {queue.id}</p>
+    //                                 <p>Customer ID: {queue.customer_id}</p>
+    //                                 <p>Nanny ID: {queue.nanny_id}</p>
+    //                                 <p>Start Date: {queue.start_date.toString()}</p>
+    //                                 <p>End Date: {queue.end_date.toString()}</p>
+    //                                 <p>Total Amount: {queue.total_amount}</p>
+    //                                 <p>Status Payment: {queue.status_payment}</p>
+    //                                 <p>Hours: {queue.hours}</p>
+
+    //                                 <div>
+    //                                     <p>Additional Booking Information</p>
+    //                                     <Link href={`/payment/${nanny?.username}`}>
+    //                                         {/* <a onClick={handleReload}>OK</a> */}
+    //                                         <a>OK</a>
+    //                                     </Link>
+    //                                 </div>
+    //                             </div>
+    //                         )}
+
+    //                         {queue.status_payment === 'Cancle' && (
+    //                             <div>
+    //                                 <p>ID: {queue.id}</p>
+    //                                 <p>Customer ID: {queue.customer_id}</p>
+    //                                 <p>Nanny ID: {queue.nanny_id}</p>
+    //                                 <p>Start Date: {queue.start_date.toString()}</p>
+    //                                 <p>End Date: {queue.end_date.toString()}</p>
+    //                                 <p>Total Amount: {queue.total_amount}</p>
+    //                                 <p>Status Payment: {queue.status_payment}</p>
+    //                                 <p>Hours: {queue.hours}</p>
+
+    //                                 <div>
+    //                                     <p>Additional Cancellation Information</p>
+    //                                     <Link href={`/hiring`}>
+    //                                         <button onClick={() => handleCancelBooking(queue.id)}>Cancel</button>
+    //                                     </Link>
+    //                                     {/* Use the handleCancelBooking function when the Cancel button is clicked */}
+
+    //                                 </div>
+    //                             </div>
+    //                         )}
+    //                     </div>
+    //                 ))
+    //             ) : (
+    //                 <p>No Notifications</p>
+    //             )}
+    //         </div>
+
+    //         <button onClick={handleExit}>Exit</button>
+    //     </div>
+    // );
     return (
         <div>
             <div>
@@ -324,10 +392,11 @@ export default function CustomersPage({ }: Props) {
 
                                     <div>
                                         <p>Additional Booking Information</p>
-                                        <Link href={`/payment/${nanny.username}`}>
-                                            {/* <a onClick={handleReload}>OK</a> */}
-                                            <a>OK</a>
-                                        </Link>
+                                        {nannies && nannies.length > 0 && (
+                                            <Link href={`/payment/${nannies.find(nanny => nanny.id === queue.nanny_id)?.username}`}>
+                                                <a>OK</a>
+                                            </Link>
+                                        )}
                                     </div>
                                 </div>
                             )}
@@ -348,8 +417,6 @@ export default function CustomersPage({ }: Props) {
                                         <Link href={`/hiring`}>
                                             <button onClick={() => handleCancelBooking(queue.id)}>Cancel</button>
                                         </Link>
-                                        {/* Use the handleCancelBooking function when the Cancel button is clicked */}
-                                        
                                     </div>
                                 </div>
                             )}

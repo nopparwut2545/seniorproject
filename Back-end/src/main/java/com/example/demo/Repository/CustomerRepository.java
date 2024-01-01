@@ -30,4 +30,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("SELECT bq FROM BookingQueue bq WHERE bq.customer_id = :customer_id AND bq.status_payment = 'Bookings'")
     List<BookingQueue> findBQByCustomerIDStatusBookings(@Param("customer_id") Long customer_id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Customer c SET c.profile_image_url = :profileImageUrl WHERE c.customerId = :customerId")
+    void updateProfileImageUrl(@Param("customerId") Long customerId, @Param("profileImageUrl") String profileImageUrl);
+
 }

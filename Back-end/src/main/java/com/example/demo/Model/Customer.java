@@ -3,6 +3,7 @@ package com.example.demo.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.w3c.dom.Text;
 
 @Entity
 @Table(name = "Customers")
@@ -77,7 +78,7 @@ public class Customer {
     private String role;
 
     @JsonProperty("locationall")
-    @Column(name = "locationall", nullable = false)
+    @Column(name = "locationall")
     private String locationall;
 
     public String getLocationall() {
@@ -86,6 +87,18 @@ public class Customer {
 
     public void setLocationall(String locationall) {
         this.locationall = locationall;
+    }
+
+    @JsonProperty("profile_image_url")
+    @Column(name = "profile_image_url")
+    private String profile_image_url;
+
+    public String getProfile_image_url() {
+        return profile_image_url;
+    }
+
+    public void setProfileImageUrl(String profile_image_url) {
+        this.profile_image_url = profile_image_url;
     }
 
     public String getRole() {

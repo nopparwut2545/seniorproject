@@ -5,11 +5,13 @@ import com.example.demo.Model.BookingQueue;
 import com.example.demo.Model.Customer;
 import com.example.demo.Model.Nanny;
 import com.example.demo.Service.CustomerService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,9 +49,8 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        // You should add logic to handle the update.
-        // For simplicity, this example directly saves the received object.
-        return customerService.saveCustomer(customer);
+
+        return customerService.saveCustomerbyEditprofile(customer);
     }
 
     @GetMapping("/getbyusername/{username}")
@@ -63,8 +64,8 @@ public class CustomerController {
     }
 
     @GetMapping("/messages")
-    public ResponseEntity<List<String> > messages(){
-        return ResponseEntity.ok(Arrays.asList("fisrt","second"));
+    public ResponseEntity<List<String>> messages() {
+        return ResponseEntity.ok(Arrays.asList("fisrt", "second"));
     }
 
     @GetMapping("/bookingcs-dataBH/{customer_id}")
@@ -80,5 +81,42 @@ public class CustomerController {
     @GetMapping("/bookings/byCustomerId/{customer_id}")
     public List<BookingQueue> findBQByCustomerIDStatusBookings(@PathVariable Long customer_id) {
         return customerService.findBQByCustomerIDStatusBookings(customer_id);
+    }
+
+    // Example for updating only the profile image URL
+//    @PostMapping("/{customer_id}/uploadProfileImage")
+//    public Customer updateProfileImage(@PathVariable Long customerId, @RequestParam("profileImage") MultipartFile profileImage) {
+//        return customerService.uploadProfileImage(customerId, profileImage);
+//    }
+
+//    @PutMapping("/{customerId}/uploadProfileImage")
+//    public ResponseEntity<?> uploadProfileImage(
+//            @PathVariable Long customerId,
+//            @RequestParam("profileImage") MultipartFile file) {
+//
+//        try {
+//            Customer img_profile = customerService.uploadProfileImage(customerId, file);
+//
+//            return ResponseEntity.ok().build();
+//        } catch (EntityNotFoundException e) {
+//            return ResponseEntity.status(404).body("Customer not found with ID: " + customerId);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).body("Error uploading profile image: " + e.getMessage());
+//        }
+//    }
+    @PutMapping("/{customerId}/uploadProfileImage")
+    public ResponseEntity<?> uploadProfileImage(
+            @PathVariable Long customerId,
+            @RequestParam("profileImage") MultipartFile file) {
+
+        try {
+            Customer img_profile = customerService.uploadProfileImage(customerId, file);
+
+            return ResponseEntity.ok(img_profile);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body("Customer not found with ID: " + customerId);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error uploading profile image: " + e.getMessage());
+        }
     }
 }

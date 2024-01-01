@@ -29,7 +29,7 @@ type Customer = {
     role: string;
     age: number;
     gender: string;
-    locationall : string;
+    locationall: string;
 };
 
 type Nanny = {
@@ -238,38 +238,44 @@ export default function Page({ params }: { params: { username: string } }) {
     // );
     return (
         <div>
-            <h2>Payment</h2>
-            <div>
+            <div className="block justify-center">
+                <div className="flex justify-center">
+                    <h2>Payment</h2>
+                </div>
                 {/* Other customer and nanny details here */}
-    
+
                 <div>
                     {bookingqueue.length === 0 ? (
                         <div>
                             <p>No bookings yet. Please wait for the nanny to confirm.</p>
                         </div>
                     ) : (
-                        <div>
-                            <div>
-                                {/* Render booking details when there are bookings */}
-                                {bookingqueue.map((bookingqueues) => (
-                                    <div key={bookingqueues.id}>
-                                        <p>ID Bookings: {bookingqueues.id}</p>
-                                        <p>Customer ID: {bookingqueues.customer_id}</p>
-                                        <p>Nanny ID: {bookingqueues.nanny_id}</p>
-                                        <p>Start Date: {bookingqueues.start_date.toString()}</p>
-                                        <p>End Date: {bookingqueues.end_date.toString()}</p>
-                                    </div>
-                                ))}
+                        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+                            <p className="text-center">Choose payment method</p>
+                            <div className="flex ">
+                                <div className="bg-white">
+                                    {/* Render booking details when there are bookings */}
+                                    {bookingqueue.map((bookingqueues) => (
+                                        <div key={bookingqueues.id}>
+                                            <p>ID Bookings: {bookingqueues.id}</p>
+                                            <p>Customer ID: {bookingqueues.customer_id}</p>
+                                            <p>Nanny ID: {bookingqueues.nanny_id}</p>
+                                            <p>Start Date: {bookingqueues.start_date.toString()}</p>
+                                            <p>End Date: {bookingqueues.end_date.toString()}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="bg-white ml-5">
+                                    <Link href={`/confirmhiring/${nanny.username}`}>
+                                        <button>Confirm</button>
+                                    </Link>
+                                </div>
                             </div>
-    
-                            <div>
-                                <Link href={`/confirmhiring/${nanny.username}`}>
-                                    <button>Confirm</button>
-                                </Link>
-                            </div>
+
                         </div>
                     )}
-    
+
                     <button onClick={handleExit}>Exit</button>
                 </div>
             </div>

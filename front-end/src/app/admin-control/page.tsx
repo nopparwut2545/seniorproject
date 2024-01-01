@@ -202,7 +202,7 @@ export default function CustomersPage({ }: Props) {
                                             <option value="Inactive">Inactive</option>
                                         </select>
                                        
-
+                                        
                                         {/* ... Add more input fields as needed ... */}
 
                                         <button type="submit">Save</button>

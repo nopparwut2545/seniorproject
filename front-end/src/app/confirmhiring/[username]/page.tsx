@@ -10,6 +10,8 @@ import DateTimePicker from 'react-datetime-picker';
 import { add, format, parseISO, addHours } from "date-fns"
 import { useRouter } from 'next/navigation'
 import jwt_decode from 'jwt-decode';
+import nanny1 from '../../../../assets/hanni.png'
+import Image from 'next/image';
 
 type Props = {};
 
@@ -29,7 +31,7 @@ type Customer = {
     role: string;
     age: number;
     gender: string;
-    locationall : string;
+    locationall: string;
 };
 
 type Nanny = {
@@ -238,58 +240,70 @@ export default function Page({ params }: { params: { username: string } }) {
 
     return (
         <div>
-            <h2>Confirm Hiring</h2>
-            <div>
+            <div className="block justify-center">
+                <div className="flex justify-center">
+                    <h2>Confirm Hiring</h2>
+                </div>
+                <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
 
-                <p>Username: {customer.username}</p>
-                <p>Email: {customer.email}</p>
-                <p>Contact_number: {customer.contact_number}</p>
+                    <div className="flex flex-col md:flex-row items-center md:items-start">
+                        <div className="mb-4 md:mr-4">
+                            <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
+                        </div>
 
-                <p>District: {customer.district}</p>
-                <p>Sub_district: {customer.sub_district}</p>
+                        <div className="ml-5">
+                            <p>Username: {customer.username}</p>
+                            <p>Email: {customer.email}</p>
+                            <p>Contact_number: {customer.contact_number}</p>
+                            <p>Locationall: {customer.locationall}</p>
+                            <p>Username: {nanny.username}</p>
+                            <p>Name: {nanny.first_name}  {nanny.last_name}</p>
+                            <p>Email: {nanny.email}</p>
+                            <p>Contact Number: {nanny.contact_number}</p>
+                            <p>Total: {nanny.cost}  baht</p>
+                            <p>Total: {nanny.type_work}</p>
+                            <p>Role: {nanny.role_level}</p>
 
-                <p>Zip_code: {customer.zip_code}</p>
-                <p>Street_number: {customer.street_number}</p>
+                            <div >
+                                {bookingqueue.map((bookingqueues) => (
 
-                <p>Username: {nanny.username}</p>
-                <p>Name: {nanny.first_name}  {nanny.last_name}</p>
-                <p>Location: {customer.district}</p>
-                <p>Email: {nanny.email}</p>
-                <p>Contact Number: {nanny.contact_number}</p>
-                <p>Total: {nanny.cost}  baht</p>
-                <p>Total: {nanny.type_work}</p>
-                <p>Role: {nanny.role_level}</p>
-
-                <div >
-                    {bookingqueue.map((bookingqueues) => (
-
-                        bookingqueues.status_payment === 'Pending' && (
-                            <div key={bookingqueues.id}>
-                                <p>ID Bookings: {bookingqueues.id}</p>
-                                <p>Hours: {bookingqueues.hours}</p>
-                                <p>Customer ID: {bookingqueues.customer_id}</p>
-                                <p>Nanny ID: {bookingqueues.nanny_id}</p>
-                                <p>Start Date: {bookingqueues.start_date.toString()}</p>
-                                <p>End Date: {bookingqueues.end_date.toString()}</p>
+                                    bookingqueues.status_payment === 'Paid' && (
+                                        <div key={bookingqueues.id}>
+                                            <p>ID Bookings: {bookingqueues.id}</p>
+                                            <p>Hours: {bookingqueues.hours}</p>
+                                            <p>Customer ID: {bookingqueues.customer_id}</p>
+                                            <p>Nanny ID: {bookingqueues.nanny_id}</p>
+                                            <p>Start Date: {bookingqueues.start_date.toString()}</p>
+                                            <p>End Date: {bookingqueues.end_date.toString()}</p>
+                                        </div>
+                                    )
+                                )
+                                )}
                             </div>
-                        )
 
-                    )
+                            <div>
+                                <button onClick={() => createBookingHistory()} disabled={clicked} >Confirm</button>
+                                <Link href={`/successfullyhiring/${nanny.username}`}>
+                                    Next
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="ml-5"  >
+                            {bookingqueue.map((bookingqueues) => (
 
-                    )}
+                                bookingqueues.status_payment === 'Paid' && (
+                                    <div key={bookingqueues.id}>
 
+                                        <p>Start Date: {bookingqueues.start_date.toString()}</p>
+                                        <p>End Date: {bookingqueues.end_date.toString()}</p>
+                                    </div>
+                                )
+                            )
+                            )}
+                        </div>
+
+                    </div>
                 </div>
-
-                <div>
-                    <button onClick={() => createBookingHistory()} disabled={clicked} >Confirm</button>
-
-
-                    <Link href={`/successfullyhiring/${nanny.username}`}>
-                        Next
-                    </Link>
-
-                </div>
-                <button onClick={handleExit}>Exit</button>
             </div>
         </div>
     );
