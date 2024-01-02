@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import styles from '../../styles/Home.module.css'
+import Navbar from '../../Component/navigation/page';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -19,7 +20,11 @@ export default function RootLayout({
       {/* <div className='mt-16 my-5'>
         <button className='text-white text-center'  >Sign In</button>
       </div> */}
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+      <Navbar />
+      {children}
+      {/* <Footer /> */}
+      </body>
     </>
   )
 }

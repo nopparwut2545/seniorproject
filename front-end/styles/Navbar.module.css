@@ -1,0 +1,11 @@
+/* styles/Navbar.module.css */
+
+.editService {
+    background: #F14950;
+    border-radius: 30px;
+    font-weight: 400;
+    padding: 10px;
+    text-decoration: none !important;
+    margin: 5px;
+  }
+  

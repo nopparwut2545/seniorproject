@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -17,6 +20,10 @@
 }
 
 body {
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  overflow: auto;
   background: linear-gradient(89deg, #FFA3BA 3.5%, #D8CFFF 99.37%);
+  text-decoration: none;
 }
 
