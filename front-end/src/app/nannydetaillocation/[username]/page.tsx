@@ -248,19 +248,21 @@ export default function Page({ params }: { params: { username: string } }) {
   return (
     <div>
       <div className="block justify-center">
-        <div className="flex justify-center">
-          <h2>Hiring Nanny</h2>
+        <div className="text-center text-5xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl font-bold">
+          <span style={{ fontFamily: 'Montserrat', }} className="text-white">Hiring Nanny</span>
         </div>
-        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
-          <div className="flex justify-center text-center">
-            <h3>Where do you want to get the nanny?</h3>
+        <div className="mt-5 bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+          <div className="mt-3 text-center text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-bold">
+            <span style={{ fontFamily: 'Montserrat', }} className="text-white">Where do you want to get a nanny ?</span>
           </div>
 
           <div className="flex flex-col sm:flex-row">
             {/* Shared location details */}
-            <div className="bg-rose-200 p-5 rounded-lg shadow-lg mb-5 sm:mb-0 sm:mr-5 w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 mx-auto">
-              <h4>Home</h4>
-              <div className="rounded-2xl overflow-hidden" style={{
+            <div className="mt-5 bg-rose-200 p-5 rounded-lg shadow-lg mb-5 sm:mb-0 sm:mr-5 w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 mx-auto">
+              <div className="mt-3 text-center text-xl md:text-xl lg:text-xl xl:text-xl 2xl:text-xl font-bold">
+                <span style={{ fontFamily: 'Montserrat', }} className="text-white">Home</span>
+              </div>
+              <div className="mt-2 rounded-2xl overflow-hidden" style={{
                 background: 'linear-gradient(0deg, #FF7093 0%, #FF7093 100%), linear-gradient(0deg, #FF7093 0%, #FF7093 100%), #FF7093',
                 borderRadius: '30px',
               }}>
@@ -273,21 +275,33 @@ export default function Page({ params }: { params: { username: string } }) {
                 <p className="text-sm m-3">Location : {customer.locationall}</p>
               </div>
 
-             
+
 
             </div>
 
-            <div className="bg-rose-200 p-5 rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 ml-5 mx-auto">
-              <h3>Enter New Location</h3>
-              <div key={nanny.username}>
-                {/* Link to the nanny detail page */}
-                <Link href={`/nannydetail2/${nanny.username}`}>
-                  <a>{customer.district}</a>
-                </Link>
-                {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+            <div className="mt-5 bg-rose-200 p-5 rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2 xl:w-3/5 ml-5 mx-auto">
+              <div className="mt-3 text-center text-xl md:text-xl lg:text-xl xl:text-xl 2xl:text-xl font-bold">
+                <span style={{ fontFamily: 'Montserrat', }} className="text-white">Enter New Location</span>
               </div>
-              <button onClick={() => setShowMap(true)}>Enter New Location</button>
-              <button onClick={handleExit}>Exit</button>
+              <div className="mt-2 rounded-2xl overflow-hidden" style={{
+                background: 'linear-gradient(0deg, #FF7093 0%, #FF7093 100%), linear-gradient(0deg, #FF7093 0%, #FF7093 100%), #FF7093',
+                borderRadius: '30px',
+                padding: '10px',
+              }}>
+                <div key={nanny.username}>
+                  {/* Link to the nanny detail page */}
+                  <Link href={`/nannydetail2/${nanny.username}`}>
+                    <a>{customer.district}</a>
+                  </Link>
+                  {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
+                </div>
+
+                <div className='flex flex-row'>
+                  <button onClick={() => setShowMap(true)}>Enter New Location</button>
+                  <button onClick={handleExit}>Exit</button>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>

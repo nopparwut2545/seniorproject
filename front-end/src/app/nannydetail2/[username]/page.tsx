@@ -122,36 +122,43 @@ export default function Page({ params }: { params: { username: string } }) {
   return (
     <div>
       <div className="block justify-center">
-        <div className="flex justify-center">
-          <h2>Hiring Nanny</h2>
+        <div className="text-center text-5xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl font-bold">
+          <span style={{ fontFamily: 'Montserrat', }} className="text-white">Hiring Nanny</span>
         </div>
-        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
-         
+        <div className="mt-5 bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
+
           <div className="flex flex-col md:flex-row items-center md:items-start">
             <div className="mb-4 md:mr-4">
               <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
             </div>
 
             <div className="mb-4 md:mb-0">
-              <p>Username: {nanny.username}</p>
-              <p>Name: {nanny.first_name} {nanny.last_name}</p>
-              <p>Location: {customer.district}</p>
-              <p>Email: {nanny.email}</p>
-              <p>Contact Number: {nanny.contact_number}</p>
-              <p>Total: {nanny.type_work}</p>
-              <p>Role: {nanny.role_level}</p>
+              <div style={{ fontFamily: 'Montserrat' }}>
+                <p><strong>Username:</strong> {nanny.username}</p>
+                <p><strong>Name:</strong> {nanny.first_name} {nanny.last_name}</p>
+                <p><strong>Location:</strong> {customer.district}</p>
+                <p><strong>Email:</strong> {nanny.email}</p>
+                <p><strong>Contact Number:</strong> {nanny.contact_number}</p>
+                <p><strong>Total:</strong> {nanny.cost} baht</p>
+                <p><strong>Type of Work:</strong> {nanny.type_work}</p>
+                <p><strong>Role:</strong> {nanny.role_level}</p>
+              </div>
             </div>
 
-            <div>
-              <p>Total: {nanny.cost} baht</p>
+            <div style={{ fontFamily: 'Montserrat' }}>
+              <p><strong>Total: </strong>{nanny.cost} baht</p>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-center mt-8"  key={nanny.username}>
+        <div className="flex justify-center mt-8" key={nanny.username}>
           {/* Link to the nanny detail page */}
           <Link href={`/nannydetaildate/${nanny.username}`}>
-            <a>Hiring</a>
+            <button className="bg-pink-400 text-white px-4 py-2 rounded-lg hover:bg-blue-700 mt-5">
+              <div style={{ fontFamily: 'Montserrat', }}>
+                Hiring
+              </div>
+            </button>
           </Link>
           {/* ... nanny information */}
           {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
@@ -160,6 +167,7 @@ export default function Page({ params }: { params: { username: string } }) {
       <button onClick={handleExit}>Exit</button>
     </div>
   );
+
 }
 
 
