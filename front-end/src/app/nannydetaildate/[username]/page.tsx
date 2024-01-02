@@ -670,14 +670,18 @@ export default function Page({ params }: { params: { username: string } }) {
     return (
         <div>
             <div className="block justify-center">
-                <div className="flex justify-center">
-                    <h2 className="text-2xl font-bold">Hiring Date</h2>
+                <div className="mt-5 text-center text-5xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl font-bold">
+                    <span style={{ fontFamily: 'Montserrat', }} className="text-white">Hiring Date</span>
                 </div>
-                <p className="text-lg">Create Booking Queues</p>
 
-                {startdate.justDate ? (
-                    <div>
-                        <div className="flex gap-4">
+
+                <p style={{ fontFamily: 'Montserrat', }} className="mt-5 mb-5 text-white text-center text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-semibold">
+                    Create Booking Queues
+                </p>
+
+                <div className="mb-5 flex justify-center">
+                    {startdate.justDate ? (
+                        <div className='justify-items-center'>
                             {starttimes?.map((time, i) => (
                                 <div
                                     key={`time-${i}`}
@@ -697,107 +701,117 @@ export default function Page({ params }: { params: { username: string } }) {
                                     </button>
                                 </div>
                             ))}
+                            <button
+                                className="bg-gray-500 text-white p-2 mt-2"
+                                onClick={() => {
+                                    setstartDate((prev) => ({ ...prev, justDate: null }));
+                                    setSelectedTime(null);
+                                }}
+                            >
+                                Clear Selection
+                            </button>
                         </div>
-                        <button
-                            className="bg-gray-500 text-white p-2 mt-2"
-                            onClick={() => {
-                                setstartDate((prev) => ({ ...prev, justDate: null }));
-                                setSelectedTime(null);
+                    ) : (
+                        <DateTimePicker
+                            className="REACT-CALENDAR p-2 justify-items-center"
+                            onChange={onChange}
+                            value={value}
+                            view="month"
+                            onClickDay={(date) => {
+                                setstartDate((prev) => ({ ...prev, justDate: date }));
+                                console.log('Selected Date:', date);
                             }}
-                        >
-                            Clear Selection
-                        </button>
-                    </div>
-                ) : (
-                    <DateTimePicker
-                        className="REACT-CALENDAR p-2"
-                        onChange={onChange}
-                        value={value}
-                        view="month"
-                        onClickDay={(date) => {
-                            setstartDate((prev) => ({ ...prev, justDate: date }));
-                            console.log('Selected Date:', date);
-                        }}
-                    />
-                )}
+                        />
+                    )}
+                </div>
 
-                {enddate.justDate ? (
-                    <div>
-                        <div className="flex gap-4">
-                            {endtimes?.map((time, i) => (
-                                <div
-                                    key={`time-${i}`}
-                                    className={`rounded-md bg-gray-200 p-2 ${selectedTime2 && selectedTime2.getTime() === time.getTime()
-                                        ? 'bg-blue-500 text-white' // Change background color on selection
-                                        : ''
-                                        }`}
-                                >
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setEndtDate((prev) => ({ ...prev, dateTime: time }));
-                                            setSelectedTime2(time); // Update selected time
-                                        }}
+                <div className="mb-5 flex justify-center">
+                    {enddate.justDate ? (
+                        <div>
+                            <div className="flex gap-4 justify-items-center">
+                                {endtimes?.map((time, i) => (
+                                    <div
+                                        key={`time-${i}`}
+                                        className={`rounded-md bg-gray-200 p-2 ${selectedTime2 && selectedTime2.getTime() === time.getTime()
+                                            ? 'bg-blue-500 text-white' // Change background color on selection
+                                            : ''
+                                            }`}
                                     >
-                                        {format(time, 'kk:mm')}
-                                    </button>
-                                </div>
-                            ))}
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setEndtDate((prev) => ({ ...prev, dateTime: time }));
+                                                setSelectedTime2(time); // Update selected time
+                                            }}
+                                        >
+                                            {format(time, 'kk:mm')}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            <button
+                                className="bg-gray-500 text-white p-2 mt-2"
+                                onClick={() => {
+                                    setEndtDate((prev) => ({ ...prev, justDate: null }));
+                                    setSelectedTime2(null);
+                                }}
+                            >
+                                Clear Selection
+                            </button>
                         </div>
-                        <button
-                            className="bg-gray-500 text-white p-2 mt-2"
-                            onClick={() => {
-                                setEndtDate((prev) => ({ ...prev, justDate: null }));
-                                setSelectedTime2(null);
+                    ) : (
+                        <DateTimePicker
+                            className="REACT-CALENDAR p-2 justify-items-center"
+                            onChange={onChange}
+                            value={value}
+                            view="month"
+                            onClickDay={(date) => {
+                                setEndtDate((prev) => ({ ...prev, justDate: date }));
+                                console.log('Selected Date:', date);
                             }}
-                        >
-                            Clear Selection
-                        </button>
-                    </div>
-                ) : (
-                    <DateTimePicker
-                        className="REACT-CALENDAR p-2"
-                        onChange={onChange}
-                        value={value}
-                        view="month"
-                        onClickDay={(date) => {
-                            setEndtDate((prev) => ({ ...prev, justDate: date }));
-                            console.log('Selected Date:', date);
-                        }}
-                    />
-                )}
+                        />
+                    )}
+                </div>
+            </div>
+            <div className='p-4 bg-slate-500 text-center m-10 rounded-xl'>
+                <p style={{ fontFamily: 'Montserrat', }} className="mt-5 mb-5 text-white text-center text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-semibold">
+                    User Information
+                </p>
+                <div className='p-2 bg-red-400 text-center m-10 rounded-xl'>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Username: {customer.username}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Email: {customer.email}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Contact Number: {customer.contact_number}</p>
 
-                <p className="mt-4">Username: {customer.username}</p>
-                <p>Email: {customer.email}</p>
-                <p>Contact Number: {customer.contact_number}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>District: {customer.district}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Sub-district: {customer.sub_district}</p>
 
-                <p>District: {customer.district}</p>
-                <p>Sub-district: {customer.sub_district}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Zip Code: {customer.zip_code}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Street Number: {customer.street_number}</p>
+                    <p style={{ fontFamily: 'Montserrat', color: 'white' }}>Nanny ID: {nanny.id}</p>
 
-                <p>Zip Code: {customer.zip_code}</p>
-                <p>Street Number: {customer.street_number}</p>
-                <p>Nanny ID: {nanny.id}</p>
+                    {checkbktest.map((nanny) => (
+                        <div key={nanny.id} className="mt-4">
+                            <p>Booking Check ID TEST: {nanny.id}</p>
+                            <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
+                            <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
+                            <p>Booking Check ID TEST: {nanny.status_payment}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-                {checkbktest.map((nanny) => (
-                    <div key={nanny.id} className="mt-4">
-                        <p>Booking Check ID TEST: {nanny.id}</p>
-                        <p>Booking Check Start Date TEST: {nanny.start_date.toString()}</p>
-                        <p>Booking Check End Date TEST: {nanny.end_date.toString()}</p>
-                        <p>Booking Check ID TEST: {nanny.status_payment}</p>
-                    </div>
-                ))}
-
+            <div className='flex justify-center p-4'>
                 <button
-                    className="bg-blue-500 text-white p-2 mt-4"
+                    className="bg-blue-500 text-white mx-2"
                     onClick={() => createBookingQueue()}
                 >
                     Confirm
                 </button>
                 <Link href={`/payment/${nanny.username}`} passHref>
-                    <a className="text-blue-500 underline ml-2">Next</a>
+                    <a className="text-blue-500 underline mx-2">Next</a>
                 </Link>
                 <button
-                    className="bg-gray-500 text-white p-2 ml-2"
+                    className="bg-gray-500 text-white mx-2"
                     onClick={handleExit}
                 >
                     Exit
