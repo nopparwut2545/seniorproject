@@ -169,45 +169,50 @@ export default function Page({ params }: { params: { username: string } }) {
     //   </div>
     // </div>
 
-    <div >
-      <div className="block justify-center">
-        <div className="flex justify-center">
-          <h2>Hiring Nanny</h2>
-        </div>
-        {/* <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto"> */}
-        <div className="bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto">
-          <div className="flex" >
-            <div>
-              <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
-            </div>
-            <div className="ml-4">
-              <p>Username: {nanny.username}</p>
-              <p>Name: {nanny.first_name} {nanny.last_name}</p>
-              <p>Location: {customer.district}</p>
-              <p>Email: {nanny.email}</p>
-              <p>Contact Number: {nanny.contact_number}</p>
-              <p>Total: {nanny.cost} baht</p>
-              <p>Total: {nanny.type_work}</p>
-              <p>Role: {nanny.role_level}</p>
+    <div className="mt-5 mb-5 block justify-center">
+      <div className="text-center text-4xl sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold">
+        <span style={{ fontFamily: 'Montserrat', }} className="text-white">Hiring Nanny</span>
+      </div>
 
-              <div key={nanny.username}>
-                {/* Link to the nanny detail page */}
-                <Link href={`/nannydetaillocation/${nanny.username}`}>
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Hiring</button>
-                </Link>
-                {/* ... nanny information */}
-                {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Hiring</button> */}
-                <button className="btn btn-primary ml-5" onClick={handleExit}>
-                Exit
-              </button>
-              </div>
-
-            </div>
+      <div className="mt-8 bg-white bg-opacity-40 p-5 rounded-2xl shadow-lg sm:w-full md:w-2/3 lg:w-1/2 xl:w-2/5 2xl:w-1/3 mx-auto flex items-center justify-center">
+        <div className="flex flex-col sm:flex-row p-4">
+          <div className="mb-4 sm:mb-0 sm:mr-4">
+            <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
           </div>
 
+          <div>
+            <div style={{ fontFamily: 'Montserrat' }}>
+              <p><strong>Username:</strong> {nanny.username}</p>
+              <p><strong>Name:</strong> {nanny.first_name} {nanny.last_name}</p>
+              <p><strong>Location:</strong> {customer.district}</p>
+              <p><strong>Email:</strong> {nanny.email}</p>
+              <p><strong>Contact Number:</strong> {nanny.contact_number}</p>
+              <p><strong>Total:</strong> {nanny.cost} baht</p>
+              <p><strong>Type of Work:</strong> {nanny.type_work}</p>
+              <p><strong>Role:</strong> {nanny.role_level}</p>
+            </div>
+
+            <div key={nanny.username}>
+              <Link href={`/nannydetaillocation/${nanny.username}`}>
+                <button className="bg-pink-400 text-white px-4 py-2 rounded-lg hover:bg-blue-700 mt-5">
+                  <div style={{ fontFamily: 'Montserrat', }}>
+                    Hiring
+                  </div>
+                </button>
+              </Link>
+
+              <button className="text-white px-4 py-2 rounded-lg bg-black hover:bg-blue-700 ml-0 sm:ml-5 mt-5 sm:mt-0" onClick={handleExit}>
+                <div style={{ fontFamily: 'Montserrat', }}>
+                  Exit
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+
 
 
   );

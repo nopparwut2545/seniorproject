@@ -10,7 +10,7 @@ import nanny1 from '../../../assets/hanni.png'
 import searchicon from '../../../assets/Magnifer.png'
 import Image from 'next/image';
 import Link from 'next/link';
-import  jwt_decode  from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 interface SearchBoxProps {
   onSearch: (term: string) => void;
@@ -43,7 +43,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onSearch }) => {
 type Props = {};
 
 type Nanny = {
-  id : number;
+  id: number;
   username: string;
   email: string;
   pass_word: string;
@@ -61,12 +61,12 @@ type Nanny = {
   status: string;
   age: number;
   gender: string;
-  score :number;
+  score: number;
   role: string;
 };
 
 type Customer = {
-  id : number;
+  id: number;
   username: string;
   email: string;
   pass_word: string;
@@ -78,20 +78,20 @@ type Customer = {
   contact_number: string;
   first_name: string;
   last_name: string;
-  role:string;
+  role: string;
   age: number;
   gender: string;
-  locationall : string;
+  locationall: string;
 };
 
 type favoriteNanny = {
-  
+
   customer_id: number;
   nanny_id: number;
 }
 
 type favoriteNannytest = {
-  id : number;
+  id: number;
   customer_id: number;
   nanny_id: number;
 }
@@ -117,29 +117,29 @@ export default function HiringPage({ }: Props) {
   //   const token = localStorage.getItem('jwt');
 
 
-      
+
   //     // Decode the JWT to extract user ID
   //     if (token) {
   //       const decodedToken: any = jwt_decode(token);
-        
+
   //       // Extract user ID from the "sub" key in JWT
   //       const userId: number = decodedToken.sub;
-        
+
   //       if (!userId) {
   //         setError("User ID not found in token.");
   //         setLoading(false);
   //         return;
   //       }
-      
+
   //     console.log("User ID:", userId);
   //   const fetchData = async () => {
   //     try {
   //       const response = await axios.get('http://localhost:9000/api/nannies');
   //       const response1 = await axios.get<Customer>(`http://localhost:9000/api/customers/${userId}`);
-        
+
   //       setNannies(response.data);
   //       setCustomer(response1.data);
-        
+
   //     } catch (err) {
   //       if (err instanceof Error) {
   //         setError(err.message);
@@ -171,7 +171,7 @@ export default function HiringPage({ }: Props) {
       const fetchData = async () => {
         try {
           const response = await axios.get('http://localhost:9000/api/nannies');
-          const response1 = await axios.get<Customer>( 
+          const response1 = await axios.get<Customer>(
             `http://localhost:9000/api/customers/${userId}`
           );
 
@@ -188,7 +188,7 @@ export default function HiringPage({ }: Props) {
       };
 
       fetchData();
-    }else{
+    } else {
       alert('You need to be logged in first.');
       router.push('/login-user');
     }
@@ -221,11 +221,11 @@ export default function HiringPage({ }: Props) {
   //     // Check if the nanny is already in the list of favorite nannies
   //     const response2 = await axios.get(`http://localhost:9000/api/favouriteNanny/getbyId/${customer.id}`);
   //     console.log("Check FavNanny response",response2.data);
-      
+
   //     const isNannyAlreadyFavorite = response2.data.some(
   //       (favoriteNanny: { nanny_id: number; }) => favoriteNanny.nanny_id === nannyId 
   //     );
-      
+
   //     if (isNannyAlreadyFavorite) {
   //       console.log('Nanny is already a favorite.');
   //       // You can show a message or take some action here
@@ -234,10 +234,10 @@ export default function HiringPage({ }: Props) {
   //         customer_id: nannyId,
   //         nanny_id: nannyId,
   //       };
-        
+
   //       const response = await axios.post<favoriteNanny>('http://localhost:9000/api/favouriteNanny', fav);
   //       console.log('Booking created successfully:', response.data);
-  
+
   //       // After a successful update, you can update the state to reflect the new favorite
   //       setNannies((prevNannies) => {
   //         // Filter the nannies to include the newly added favorite
@@ -279,7 +279,7 @@ export default function HiringPage({ }: Props) {
       console.error('Error adding favorite nanny:', error);
     }
   };
-  
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -288,38 +288,65 @@ export default function HiringPage({ }: Props) {
   }
 
   return (
-    <div>
-      <div className={styles.logoweb}>
-      <Image src={logo}alt="" width={200} height={150} layout="fixed" />
+    <div className={styles.rootContainer}>
+      <div className="mt-3 text-center text-4xl sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold">
+        <span style={{ fontFamily: 'Montserrat', }} className="text-white">Hiring Nanny</span>
       </div>
-      <div className={styles.Banner}>
-      <h2>Hiring Nanny</h2>
-      </div>
-      <div className={styles.searchbox}>
-      <SearchBox onSearch={handleSearch} />
-    </div>
-      <div className={`grid grid-cols-3 gap-3 ${styles.cardcontainer}`}>
-      {nannies.map((nanny) => (
-        nanny.status !== 'Inactive' && (
-          <div className={styles.card} key={nanny.username}>
-            <Image src={nanny1} alt="" width={200} height={150} layout="fixed" />
-            {/* Link to the nanny detail page */}
-            <Link href={`/nannydetail/${nanny.username}`}>
-              <a>{nanny.username}</a>
-            </Link>
-                  {/* ... nanny information */}
-                  <div className={styles.groupbanner}>
-                {/* <button onClick={() => handleUpdateStatus(nanny.username)}>Set Inactive</button> */}
-                <button onClick={() => AddfavoriteNanny(nanny.id)}>Add Favourite
-                  <Image src={like} alt="" width={50} height={30} layout="fixed" />
-                </button>
+
+      <div className="container mx-auto mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 justify-items-center">
+          {nannies.map((nanny, index) => (
+            nanny.status === 'Inactive' && (
+              <div className="col p-3 text-center bg-white rounded-xl" key={nanny.username}>
+                <div
+                  style={{
+                    backgroundImage: `url(${nanny1})`,
+                    backgroundSize: 'contain',
+                    backgroundPosition: 'center',
+                    minHeight: '200px',
+                    minWidth: '200px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  className='mb-5'
+                >
+                  <Image src={nanny1} alt="" width={300} height={250} />
+                </div>
+                {/* Link to the nanny detail page */}
+                <Link href={`/nannydetail/${nanny.username}`}>
+                  <a style={{ fontFamily: 'Montserrat', }}>
+                    <span className='mt-6 text-xl md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium'>
+                      {nanny.username}
+                    </span>
+                  </a>
+                </Link>
+                {/* ... nanny information */}
+                <div>
+                  <button onClick={() => AddfavoriteNanny(nanny.id)}>
+                    <span className='mt-2 text-xl md:text-xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium'>
+                      <div style={{ fontFamily: 'Montserrat', }}>Add Favourite</div>
+                    </span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Image src={like} alt="" width={50} height={30} layout="fixed" />
+                    </div>
+                  </button>
+                </div>
               </div>
-          </div>
-              )
-            ))}
-          </div>
-          <button onClick={handleExit}>Exit</button>
+            )
+          ))}
+        </div>
+      </div>
+
+      <button onClick={handleExit}>Exit</button>
     </div>
+
   );
 }
 

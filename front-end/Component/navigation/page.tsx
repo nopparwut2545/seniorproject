@@ -9,7 +9,7 @@ import styles from '../../styles/Navbar.module.css';
 const Navbar = () => {
     return (
         <nav className="navbar navbar-light">
-            <div className="container">
+            <div className="container d-flex justify-content-between align-items-center">
                 {/* Logo */}
                 <Link href="/">
                     <a className="navbar-brand">
@@ -24,24 +24,24 @@ const Navbar = () => {
                 </Link>
 
                 {/* Navigation Links */}
-                <div className="d-flex justify-content-end flex-grow-1">
-                    <Link href="/services">
-                        <a className={`col text-white ${styles.editService}`}>
-                          Service
+                <div className="d-flex justify-content-center align-items-center">
+                    <Link href="/">
+                        <a className={`text-white ${styles.editService}`}>
+                            Service
                         </a>
                     </Link>
-                    <Link href="/customer-service">
-                        <a className={`col text-white ${styles.editService}`}>
+                    <Link href="/">
+                        <a className={`text-white ${styles.editService}`}>
                             Customer Service
                         </a>
                     </Link>
-                    <Link href="/messages">
-                        <a className={`col text-white ${styles.editService}`}>
+                    <Link href="/">
+                        <a className={`text-white ${styles.editService}`}>
                             Message
                         </a>
                     </Link>
-                    <Link href="/notifications">
-                        <a className={`col text-white ${styles.editService}`}>
+                    <Link href="/">
+                        <a className={`text-white ${styles.editService}`}>
                             Notification
                         </a>
                     </Link>
