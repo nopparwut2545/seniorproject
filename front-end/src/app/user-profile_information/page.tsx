@@ -11,6 +11,7 @@ import searchicon from '../../../assets/Magnifer.png'
 import Image from 'next/image';
 import Link from 'next/link';
 import Customerpage from '@/app/testupload/page';
+import 'bootstrap/dist/css/bootstrap.min.css';
 type Props = {};
 
 type Customer = {
@@ -257,6 +258,7 @@ export default function CustomersPage({ }: Props) {
                 <h2>Edit Profile</h2>
             </div>
             <div className='flex items-center justify-center' >
+                {/* <div className="flex items-center justify-center text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-semibold"> */}
                 <div className={` ${styles.cardcontainer}`}>
                     <div className={styles.card} key={customer?.username}>
                         <div className="block items-center justify-center" >
@@ -267,11 +269,36 @@ export default function CustomersPage({ }: Props) {
 
                             <div className={styles.groupbanner}>
                                 {editing ? (
-                                    <div >
+                                    // <div className="flex flex-col items-center justify-center mx-auto max-w-2xl">  
+                                    //     {editableFields.map((field) => (
+                                    //         <div key={field} className="mb-4 flex items-center justify-center w-full">
+                                    //             <div className="col-span-5">
+                                    //                 <span >{field.replace(/_/g, ' ')}:</span>
+                                    //             </div>
+                                    //             <div className="ml-2 col-span-7">
+                                    //                 <input
+                                    //                     type="text"
+                                    //                     name={field}
+                                    //                     value={editedCustomer ? editedCustomer[field] : ''}
+                                    //                     onChange={handleInputChange}
+                                    //                     className="bg-white border rounded-md px-3 py-2"
+                                    //                 />
+                                    //             </div>
+
+                                    //         </div>
+                                    //     ))}
+                                    //     <div className='flex items-center justify-center'>
+                                    //         <button
+                                    //             onClick={EditImage}
+                                    //             className="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                                    //         >Edit Image</button>
+                                    //     </div>
+                                    // </div>
+                                    <div className="flex flex-col items-center justify-center mx-auto max-w-2xl">
                                         {editableFields.map((field) => (
-                                            <div key={field} className="mb-4 flex items-center justify-center">
+                                            <div key={field} className="mb-4 flex items-center justify-center w-full">
                                                 <div className="col-span-5">
-                                                    <span >{field.replace(/_/g, ' ')}:</span>
+                                                    <span>{field.replace(/_/g, ' ')}:</span>
                                                 </div>
                                                 <div className="ml-2 col-span-7">
                                                     <input
@@ -279,17 +306,18 @@ export default function CustomersPage({ }: Props) {
                                                         name={field}
                                                         value={editedCustomer ? editedCustomer[field] : ''}
                                                         onChange={handleInputChange}
-                                                        className="bg-white border rounded-md px-3 py-2"
+                                                        className="bg-white border rounded-md px-3 py-2 w-full"
                                                     />
                                                 </div>
-
                                             </div>
                                         ))}
                                         <div className='flex items-center justify-center'>
                                             <button
                                                 onClick={EditImage}
                                                 className="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                                            >Edit Image</button>
+                                            >
+                                                Edit Image
+                                            </button>
                                         </div>
                                     </div>
                                 ) : (

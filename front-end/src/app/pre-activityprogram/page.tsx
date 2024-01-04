@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 type Props = {};
 
 type Customer = {
+    id: number;
     username: string;
     email: string;
     pass_word: string;
@@ -21,7 +22,7 @@ type Customer = {
 };
 
 type ActivityProgram = {
-    ProgramID: number;
+    // ProgramID: number;
     Normal_Period1: string;
     Normal_Period2: string;
     Normal_Period3: string;
@@ -45,10 +46,12 @@ export default function PreActivityProgramPage({ }: Props) {
         localStorage.removeItem('jwt');
         router.push('/login-admin');
     };
+    
     const createNullActivityProgram = async () => {
+        if (!customer) return <div>Customer Null ...</div>;
         try {
             const newActivityProgram: ActivityProgram = {
-                ProgramID: 0,
+                
                 Normal_Period1: '',
                 Normal_Period2: '',
                 Normal_Period3: '',
@@ -59,7 +62,7 @@ export default function PreActivityProgramPage({ }: Props) {
                 Overnight_Period3: '',
                 Overnight_Period4: '',
                 Overnight_Period5: '',
-                customer_id: 3,
+                customer_id: customer.id,
             };
 
             const response = await axios.post<ActivityProgram>(
@@ -131,6 +134,7 @@ export default function PreActivityProgramPage({ }: Props) {
                     <button>Activity Program</button>
                 </Link>
             </div>
+            <button onClick={createNullActivityProgram}>Add</button>
             <button onClick={handleExit}>Exit</button>
         </>
     );
