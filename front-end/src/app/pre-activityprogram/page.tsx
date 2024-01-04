@@ -46,12 +46,12 @@ export default function PreActivityProgramPage({ }: Props) {
         localStorage.removeItem('jwt');
         router.push('/login-admin');
     };
-    
+
     const createNullActivityProgram = async () => {
         if (!customer) return <div>Customer Null ...</div>;
         try {
             const newActivityProgram: ActivityProgram = {
-                
+
                 Normal_Period1: '',
                 Normal_Period2: '',
                 Normal_Period3: '',
@@ -103,7 +103,7 @@ export default function PreActivityProgramPage({ }: Props) {
                     console.log('customer id: ', customerResponse.data.username);
                     console.log('Response from API:', activityResponse.data);
                     if (activityResponse.data.length === 0) {
-                        alert('You dont have an activity program. Creating a null activity program.');
+                        alert('You dont have an activity program. Creating a null activity program via press the button " Add ".');
                         createNullActivityProgram();
                     }
 
@@ -129,12 +129,18 @@ export default function PreActivityProgramPage({ }: Props) {
 
     return (
         <>
-            <div className="w-full h-screen flex justify-center items-center">
+            <div className="mt-10 text-center text-4xl sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-bold">
+                <span style={{ fontFamily: 'Montserrat', }} className="text-white">Activity Program</span>
+            </div>
+            <div className="mt-10 flex justify-center items-center">
                 <Link href={`/activityprogram`}>
-                    <button>Activity Program</button>
+                    <button style={{ fontFamily: 'Montserrat', }}
+                        className="text-white bg-red-200 p-4 rounded-3xl font-normal"
+                        onClick={createNullActivityProgram}>
+                        Add
+                    </button>
                 </Link>
             </div>
-            <button onClick={createNullActivityProgram}>Add</button>
             <button onClick={handleExit}>Exit</button>
         </>
     );
