@@ -1,5 +1,7 @@
 .rootContainer {
   background: linear-gradient(89deg, #FFA3BA 3.5%, #D8CFFF 99.37%);
+  width: 100vw;
+  height: 100vh;
 }
 
 .borderBox {
