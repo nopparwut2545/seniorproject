@@ -50,27 +50,32 @@ export default function PreActivityProgramPage({ }: Props) {
     const createNullActivityProgram = async () => {
         if (!customer) return <div>Customer Null ...</div>;
         try {
-            const newActivityProgram: ActivityProgram = {
+            // Check if there are existing activity programs
+            if (activity.length === 0 || !activity[0] || Object.values(activity[0]).every(val => val === '')) {
+                const newActivityProgram: ActivityProgram = {
+                    Normal_Period1: '',
+                    Normal_Period2: '',
+                    Normal_Period3: '',
+                    Normal_Period4: '',
+                    Normal_Period5: '',
+                    Overnight_Period1: '',
+                    Overnight_Period2: '',
+                    Overnight_Period3: '',
+                    Overnight_Period4: '',
+                    Overnight_Period5: '',
+                    customer_id: customer.id,
+                };
 
-                Normal_Period1: '',
-                Normal_Period2: '',
-                Normal_Period3: '',
-                Normal_Period4: '',
-                Normal_Period5: '',
-                Overnight_Period1: '',
-                Overnight_Period2: '',
-                Overnight_Period3: '',
-                Overnight_Period4: '',
-                Overnight_Period5: '',
-                customer_id: customer.id,
-            };
-
-            const response = await axios.post<ActivityProgram>(
-                'http://localhost:9000/api/activityprogram',
-                newActivityProgram
-            );
-            console.log('Null Activity Program created:', response.data);
-            setActivity([response.data]);
+                const response = await axios.post<ActivityProgram>(
+                    'http://localhost:9000/api/activityprogram',
+                    newActivityProgram
+                );
+                console.log('Null Activity Program created:', response.data);
+                setActivity([response.data]);
+            } else {
+                console.log('User already has an activity program');
+                // You can provide feedback to the user if needed
+            }
         } catch (error) {
             console.error('Error creating Null Activity Program:', error);
         }

@@ -54,7 +54,7 @@ export default function ActivityProgramPage({ }: Props) {
 
     const handleExit = () => {
         localStorage.removeItem('jwt');
-        router.push('/login-admin');
+        router.push('/login-user');
     };
 
 
