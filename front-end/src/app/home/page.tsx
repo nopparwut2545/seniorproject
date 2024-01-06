@@ -1,4 +1,5 @@
 import React from 'react';
+import RootLayout from "../layout";
 import styles from '../../../styles/Home.module.css';
 import hearticon from '../../../assets/bold-like-hearts.png';
 import msgicon from '../../../assets/bold-messages-conversation-dialog.png';
@@ -25,6 +26,7 @@ type Props = {}
 export default function Hoempage() {
   return (
     <div className={styles.rootContainer}>
+       <RootLayout showNavbar={true}>
       <div className="container px-4 py-10">
         <div className="row gx-5">
           <div className="col mt-2">
@@ -165,7 +167,7 @@ export default function Hoempage() {
               height={80}
             />
             <span className='text-xl md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl font-medium'>Activity Program</span>
-            <a href="/hiring" className={`mt-3 p-3 text-l md:text-l lg:text-l xl:text-xl 2xl:text-xl font-semibold text-black ${styles.tryButton}`}>Try it now</a>
+            <a href="/pre-activityprogram" className={`mt-3 p-3 text-l md:text-l lg:text-l xl:text-xl 2xl:text-xl font-semibold text-black ${styles.tryButton}`}>Try it now</a>
           </div>
         </div>
     </div>
@@ -177,7 +179,7 @@ export default function Hoempage() {
       </aside>
     </footer>
 
-    
+    </RootLayout>
     </div>
   );
 }
