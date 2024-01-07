@@ -83,11 +83,8 @@ type DecodedToken = {
 };
 // ของเก่า 
 export default function CustomersPage({ }: Props) {
-
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
-
     // const [customer, setcustomer] = useState<Customer | null>(null);
     const [customer, setCustomer] = useState<Customer | null>(null);
 
@@ -128,6 +125,10 @@ export default function CustomersPage({ }: Props) {
             }
         }
     };
+
+    function refreshPage() {
+        window.location.reload();
+    }
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -254,8 +255,8 @@ export default function CustomersPage({ }: Props) {
     return (
         <div>
             <div className={styles.logoweb}></div>
-            <div className={styles.Banner}>
-                <h2>Edit Profile</h2>
+            <div className="mt-3 mb-4 text-center text-4xl sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold">
+                <span style={{ fontFamily: 'Montserrat', }} className="text-white">Edit Profile</span>
             </div>
             <div className='flex items-center justify-center' >
                 {/* <div className="flex items-center justify-center text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-semibold"> */}
@@ -345,10 +346,16 @@ export default function CustomersPage({ }: Props) {
                                     >Exit</button>
                                 </div>
                             )}
-                            {editing && <button
-                                onClick={handleSave}
-                                className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-green-300"
-                            >Save</button>}
+                            {editing &&
+                                <button
+                                    onClick={
+                                        () => {
+                                            handleSave();
+                                            refreshPage();
+                                        }
+                                    }
+                                    className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-green-300"
+                                >Save</button>}
                         </div>
                     </div>
                     {/* <Customerpage /> */}
