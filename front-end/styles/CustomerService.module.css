@@ -1,0 +1,125 @@
+.rootContainer {
+    background: linear-gradient(89deg, #FFA3BA 3.5%, #D8CFFF 99.37%);
+}
+
+.headerBanner {
+    margin-top: 68px;
+    font-size: 24px;
+    color: #FFF;
+    text-align: center;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: #FF7093;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    margin-left: 80px;
+    margin-right: 80px;
+    background: #FFF;
+    font-family: Comfortaa;
+    padding: 20px;
+}
+
+.left {
+    flex: 1;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.right {
+    flex: 1;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.centeredImage {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.chatMessage {
+    text-align: center;
+}
+
+@media screen and (max-width: 320px) {
+    .headerBanner {
+        margin-left: 10px; 
+        margin-right: 10px; 
+    }
+
+    .container {
+        flex-direction: column; 
+        margin-left: 10px; 
+        margin-right: 10px; 
+        margin-bottom: 10px;
+    }
+
+    .left,
+    .right {
+        width: 100%; 
+        margin-left: 0;
+        margin-right: 0; 
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .headerBanner {
+        margin-left: 10px; 
+        margin-right: 10px; 
+    }
+
+    .container {
+        flex-direction: column; 
+        margin-left: 10px; 
+        margin-right: 10px; 
+        margin-bottom: 10px;
+    }
+
+    .left,
+    .right {
+        width: 100%; 
+        margin-left: 0;
+        margin-right: 0; 
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .headerBanner {
+        margin-left: 10px; 
+        margin-right: 10px; 
+    }
+
+    .container {
+        flex-direction: column; 
+        margin-left: 10px; 
+        margin-right: 10px; 
+        margin-bottom: 10px;
+    }
+
+    .left,
+    .right {
+        width: 100%; 
+        margin-left: 0;
+        margin-right: 0; 
+    }
+}
