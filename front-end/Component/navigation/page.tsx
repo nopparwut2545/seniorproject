@@ -1,13 +1,13 @@
-// Import necessary modules
-
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../assets/Logo.png';
+import { Menu } from '@headlessui/react'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from '../../styles/Navbar.module.css';
 import jwt_decode from 'jwt-decode';
+import 'tailwindcss/tailwind.css';
 import Head from 'next/head';
 import { NavbarCollapse, NavbarToggle } from 'react-bootstrap';
 import { useDebugValue, useEffect, useState } from 'react';
@@ -67,7 +67,11 @@ const CustomNavbar = () => {
     const [customer, setCustomer] = useState<Customer | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const toggleMenu = () => {
+      setIsMenuOpen(!isMenuOpen);
+    };
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -111,79 +115,47 @@ const CustomNavbar = () => {
 
 
     return (
-        <>
-            {/* Old Navbar */}
-            <Head>
-                <link
-                    rel="stylesheet"
-                    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-                    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyDHdesTI4pFhDblG9L4ZBho67M5dXlZ"
-                    crossOrigin="anonymous"
-                />
-                <script
-                    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                    crossOrigin="anonymous"
-                ></script>
-                <script
-                    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"
-                    integrity="sha384-fz1YvbB/QB2R9WRh8Fddp5qLahto4t9ouSM4nFUEcfxlKlHvZo5TCCG8OYlaP8WG"
-                    crossOrigin="anonymous"
-                ></script>
-                <script
-                    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-                    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyDHdesTI4pFhDblG9L4ZBho67M5dXlZ"
-                    crossOrigin="anonymous"
-                ></script>
-            </Head>
-            
-            <Navbar expand="lg" variant="light">
-                <div className="container">
-                    <Link href="/home">
-                        <a className="navbar-brand">
-                            <Image
-                                src={logo}
-                                alt=""
-                                className="img-fluid"
-                                width="200"
-                                height="100"
+        <div className={styles.rootContainer}>
+            <nav className={styles.navbar}>
+                <div className={styles.logo}>
+                    <Link href="/">
+                        <a>
+                            <Image src={logo}
+                                alt={'logo-webapp'}
+                                className={`${styles.pics}`}
+                                width={250}
+                                height={180}
                             />
                         </a>
                     </Link>
-
-                    <NavbarToggle aria-controls="navbarNav" />
-                    <NavbarCollapse id="navbarNav">
-                        <Nav className={`mx-auto ${styles.navLinks}`}>
-                            <Link href="/">
-                                <a style={{ fontFamily: 'Montserrat', textDecoration: 'none' }} className={`nav-link ${styles.editService}`}>Service</a>
-                            </Link>
-                            <Link href="/">
-                                <a style={{ fontFamily: 'Montserrat' }} className={`nav-link ${styles.editService}`}>Customer Service</a>
-                            </Link>
-                            <Link href="/">
-                                <a style={{ fontFamily: 'Montserrat' }} className={`nav-link ${styles.editService}`}>Message</a>
-                            </Link>
-                            <Link href="/">
-                                <a style={{ fontFamily: 'Montserrat' }} className={`nav-link ${styles.editService}`}>Notification</a>
-                            </Link>
-                            <Link href="/">
-                                {userProfile && (
-                                    <div className="profile-pics">
-                                        <Image
-                                            src={"data:image/png;base64," + userProfile}
-                                            alt="Profile"
-                                            width="40"
-                                            height="40"
-                                            className={`${styles.circularImage}`}
-                                        />
-                                    </div>
-                                )}
-                            </Link>
-                        </Nav>
-                    </NavbarCollapse>
                 </div>
-            </Navbar>
-        </>
+                <div className={styles.services}>
+                    <Link href="/home">
+                        <a className={styles.service}>Service</a>
+                    </Link>
+                    <Link href="/customerservice">
+                        <a className={styles.service}>Help</a>
+                    </Link>
+                    {/* <Link href="/service3">
+                        <a className={styles.service}>Service 3</a>
+                    </Link> */}
+                    <Link href="/home">
+                        <a className={styles.service}>Notification</a>
+                    </Link>
+                    {userProfile && (
+                            <div className={`${styles.menu}`}>
+                                <Image
+                                    src={"data: image/png;base64," + userProfile}
+                                    alt='user-profile'
+                                    width={40}
+                                    height={40}
+                                    className='rounded-xl'
+                                />
+                            </div>
+                        )}
+                </div>
+            </nav>
+        </div>
     );
 };
 

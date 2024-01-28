@@ -1,5 +1,6 @@
 // CustomerService.tsx
 'use client'
+import RootLayout from "../layout";
 import styles from "../../../styles/CustomerService.module.css";
 import message from "../../../assets/Dialog.png"
 import phonesignal from "../../../assets/phonesignal.png"
@@ -7,6 +8,7 @@ import Image from "next/image";
 
 export default function CustomerService() {
     return (
+        <RootLayout showNavbar={true}>
         <div className={styles.rootContainer}>
             <div className="mt-10 text-center text-4xl sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold">
                 <span style={{ fontFamily: 'Montserrat', }} className="text-white">Customer Service</span>
@@ -33,5 +35,6 @@ export default function CustomerService() {
                 </div>
             </div>
         </div>
+        </RootLayout>
     );
 }
