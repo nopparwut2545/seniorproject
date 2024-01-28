@@ -120,4 +120,46 @@
   padding: 2px;
   border-radius: 40px;
   text-decoration: none;
+  font-family: Comfortaa;
+}
+
+@media (max-width: 320px) {
+  .flexColumn {
+    flex-direction: column;
+  }
+  .bgContainer{
+    border-radius: 0%;
+  }
+  .normalText {
+    text-align: start;
+    margin: auto;
+  }
+
+  .serviceText{
+    margin: 0;
+    padding: 0;
+    text-align: start;
+  }
+
+
+}
+
+
+@media (min-width: 640px) { 
+    .bgContainer{
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .editServiceHome img {
+      margin-top: 20px;
+      border-radius: 50%;
+      width: 70%;
+      height: 80%;
+    }
+ }
+
+ @media (min-width: 768px) { 
+  .bgContainer{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
